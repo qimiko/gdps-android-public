@@ -57,7 +57,7 @@ void imgui_stylecolorslightgreen(ImGuiStyle* dst)
     colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
     colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
     colors[ImGuiCol_WindowBg] = ImVec4(0.86f, 0.86f, 0.86f, 1.00f);
-    //colors[ImGuiCol_ChildWindowBg]         = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    // colors[ImGuiCol_ChildWindowBg]         = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
     colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
     colors[ImGuiCol_PopupBg] = ImVec4(0.93f, 0.93f, 0.93f, 0.98f);
     colors[ImGuiCol_Border] = ImVec4(0.71f, 0.71f, 0.71f, 0.08f);
@@ -183,11 +183,9 @@ void draw_tree_for_node(cocos2d::CCNode* node)
             float color_vals[] = { color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, opacity / 255.0f };
 
             if (ImGui::ColorEdit4("Color", color_vals, ImGuiColorEditFlags_Uint8)) {
-                c_node->setColor({
-                    static_cast<uint8_t>(color_vals[0] * 255),
+                c_node->setColor({ static_cast<uint8_t>(color_vals[0] * 255),
                     static_cast<uint8_t>(color_vals[1] * 255),
-                    static_cast<uint8_t>(color_vals[2] * 255)
-                });
+                    static_cast<uint8_t>(color_vals[2] * 255) });
                 c_node->setOpacity(color_vals[3] * 255);
             }
         }
@@ -284,8 +282,7 @@ void imgui_draw_log_window()
         ImGui::GetStyle().Alpha = LOGGER_ALPHA;
     }
 
-    if (ImGui::Begin("Logs", &SHOW_LOGGER))
-    {
+    if (ImGui::Begin("Logs", &SHOW_LOGGER)) {
         if (ImGui::BeginPopup("Options")) {
             ImGui::Checkbox("Translucent", &LOGGER_TRANSLUCENT);
             if (LOGGER_TRANSLUCENT) {
@@ -458,7 +455,7 @@ void imgui_tick(void* tex = nullptr)
     ImGuiIO& io = ImGui::GetIO();
 
     /*
-	// todo: use cocos methods for this (if needed)
+        // todo: use cocos methods for this (if needed)
     static bool WantTextInputLast = false;
     if (io.WantTextInput && !WantTextInputLast)
         ShowSoftKeyboardInput();
@@ -469,23 +466,19 @@ void imgui_tick(void* tex = nullptr)
         imgui_draw_overlay_options();
     }
 
-    if (SHOW_LOGGER)
-    {
+    if (SHOW_LOGGER) {
         imgui_draw_log_window();
     }
 
-    if (SHOW_DEMO)
-    {
+    if (SHOW_DEMO) {
         ImGui::ShowDemoWindow(&SHOW_DEMO);
     }
 
-    if (SHOW_VARS)
-    {
+    if (SHOW_VARS) {
         imgui_draw_vars_window();
     }
 
-    if (SHOW_EXPLORER)
-    {
+    if (SHOW_EXPLORER) {
         imgui_draw_cocos_window();
     }
 
@@ -517,7 +510,6 @@ void imgui_tick(void* tex = nullptr)
 
         ImGui::End();
     }
-
 
     auto window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoBackground;
     auto height = ImGui::GetFrameHeight();
@@ -592,7 +584,7 @@ void imgui_init()
         io.Fonts->AddFontDefault(&font_cfg);
     } else {
         io.Fonts->AddFontFromMemoryTTF(font_buffer, size, default_font_size);
-//        delete[] font_buffer; // leaving this open causes memory dealloc crashes
+        //        delete[] font_buffer; // leaving this open causes memory dealloc crashes
     }
 
     ImGui::GetStyle().ScaleAllSizes((dpi / DPI_NORMAL_FACTOR) * 3.5f);
@@ -651,7 +643,6 @@ void CCDirector_drawScene(cocos2d::CCDirector* self)
 
         glFlush();
     }
-
 }
 
 int CCApplication_run(cocos2d::CCApplication* self)
@@ -692,26 +683,26 @@ void CCTouchDispatcher_touches(cocos2d::CCTouchDispatcher* self, cocos2d::CCSet*
     bool pass_mouse_pos_to_gui = io.WantCaptureMouse;
 
     switch (index) {
-        case 0: // CCTOUCHBEGAN
-            io.MouseDown[0] = true;
-            pass_mouse_pos_to_gui = true;
+    case 0: // CCTOUCHBEGAN
+        io.MouseDown[0] = true;
+        pass_mouse_pos_to_gui = true;
 
-            // there was some bugs regarding the mouse being in the wrong spot so this resolves it
-            [[fallthrough]];
-        case 1: { // CCTOUCHMOVED
-            auto touch = reinterpret_cast<cocos2d::CCTouch*>(touches->anyObject());
-            if (touch != nullptr && pass_mouse_pos_to_gui) {
-                auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
-                auto loc = touch->getLocationInView();
+        // there was some bugs regarding the mouse being in the wrong spot so this resolves it
+        [[fallthrough]];
+    case 1: { // CCTOUCHMOVED
+        auto touch = reinterpret_cast<cocos2d::CCTouch*>(touches->anyObject());
+        if (touch != nullptr && pass_mouse_pos_to_gui) {
+            auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
+            auto loc = touch->getLocationInView();
 
-                io.MousePos = ImVec2(loc.x * eglview->getScaleX(), loc.y * eglview->getScaleY());
-            }
-            break;
-            }
-        case 2: // CCTOUCHENDED
-        case 3: // CCTOUCHCANCELLED
-            io.MouseDown[0] = false;
-            break;
+            io.MousePos = ImVec2(loc.x * eglview->getScaleX(), loc.y * eglview->getScaleY());
+        }
+        break;
+    }
+    case 2: // CCTOUCHENDED
+    case 3: // CCTOUCHCANCELLED
+        io.MouseDown[0] = false;
+        break;
     }
 
     // always pass end/cancel events. may introduce crashes but should fix other bugs

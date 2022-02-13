@@ -79,11 +79,9 @@ GJComment* GJComment_create(cocos2d::CCDictionary* dict)
     comment_obj->setUserObject(ext_obj);
 
     ext_obj->setEnumBitVal(dict->valueForKey("11")->uintValue());
-    ext_obj->setCustomColor({
-        static_cast<uint8_t>(dict->valueForKey("12")->uintValue()),
+    ext_obj->setCustomColor({ static_cast<uint8_t>(dict->valueForKey("12")->uintValue()),
         static_cast<uint8_t>(dict->valueForKey("13")->uintValue()),
-        static_cast<uint8_t>(dict->valueForKey("14")->uintValue())
-    });
+        static_cast<uint8_t>(dict->valueForKey("14")->uintValue()) });
     ext_obj->setHasSetColor(dict->valueForKey("15")->boolValue());
 
     if (comment_obj->getUserID() == 17414 || comment_obj->getUserID() == 16144) {
@@ -160,11 +158,9 @@ GJUserScore* GJUserScore_create(cocos2d::CCDictionary* dict)
     score_obj->setUserObject(ext_obj);
 
     ext_obj->setEnumBitVal(dict->valueForKey("18")->uintValue());
-    ext_obj->setCustomColor({
-        static_cast<uint8_t>(dict->valueForKey("19")->uintValue()),
+    ext_obj->setCustomColor({ static_cast<uint8_t>(dict->valueForKey("19")->uintValue()),
         static_cast<uint8_t>(dict->valueForKey("20")->uintValue()),
-        static_cast<uint8_t>(dict->valueForKey("21")->uintValue())
-    });
+        static_cast<uint8_t>(dict->valueForKey("21")->uintValue()) });
     ext_obj->setHasSetColor(dict->valueForKey("22")->boolValue());
 
     if (score_obj->getUserID() == 17414 || score_obj->getUserID() == 16144) {
