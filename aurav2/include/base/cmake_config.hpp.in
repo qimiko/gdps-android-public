@@ -1,0 +1,15 @@
+#pragma once
+#ifndef CMAKE_CONFIG_HPP
+#define CMAKE_CONFIG_HPP
+
+namespace CMakeConfiguration {
+	constexpr auto HASH = "@GIT_SHA1@";
+	constexpr auto BRANCH = "@GIT_BRANCH@";
+
+	constexpr auto VER_MAJOR = @aurav2_VERSION_MAJOR@;
+	constexpr auto VER_MINOR = @aurav2_VERSION_MINOR@;
+	constexpr auto VER_PATCH = @aurav2_VERSION_PATCH@;
+
+	constexpr auto COMPILE_TIME = "@COMPILE_TIME@";
+}
+#endif

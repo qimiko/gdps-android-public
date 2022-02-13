@@ -1,0 +1,10 @@
+[
+		{
+			"name": "Android NDK r17c",
+			"toolchainFile": "/toolchain/android-ndk-r17c/build/cmake/android.toolchain.cmake",
+			"compilers": {
+				"C": "/toolchain/android-ndk-r17c/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+				"Cxx": "/toolchain/android-ndk-r17c/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+			}
+		}
+]

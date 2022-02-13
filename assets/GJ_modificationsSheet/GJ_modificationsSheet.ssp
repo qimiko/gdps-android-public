@@ -1,0 +1,52 @@
+{
+    "algorithm": "Rect",
+    "dataFormat": "cocos2d-old",
+    "destPath": "../built",
+    "encryptionKey": "",
+    "epsilon": 15,
+    "heuristicMask": false,
+    "imageFormat": "*.png",
+    "jpgQuality": 80,
+    "pixelFormat": "ARGB8888",
+    "pngOptLevel": 7,
+    "pngOptMode": "Lossless",
+    "premultiplied": true,
+    "prependSmartFolderName": false,
+    "rotateSprites": false,
+    "scalingVariants": [
+        {
+            "forceSquared": false,
+            "maxTextureSize": 2048,
+            "name": "uhd/",
+            "pow2": false,
+            "scale": 1
+        },
+        {
+            "forceSquared": false,
+            "maxTextureSize": 2048,
+            "name": "hd/",
+            "pow2": false,
+            "scale": 0.5
+        },
+        {
+            "forceSquared": false,
+            "maxTextureSize": 2048,
+            "name": "sd/",
+            "pow2": false,
+            "scale": 0.25
+        }
+    ],
+    "spriteBorder": 1,
+    "spriteSheetName": "GJ_modificationsSheet",
+    "srcList": [
+        "GJ_superCoin_001.png",
+        "gj_fbIcon_001.png",
+        "GJ_moreGamesBtn_001.png",
+        "robtoplogo_small.png"
+    ],
+    "textureBorder": 0,
+    "trimMode": "Rect",
+    "trimSpriteNames": false,
+    "trimThreshold": 1,
+    "webpQuality": 80
+}

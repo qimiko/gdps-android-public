@@ -1,0 +1,8 @@
+lib/armeabi/
+lib/x86/
+res/drawable-hdpi-v4/icon.png
+res/drawable-mdpi-v4/icon.png
+res/drawable-ldpi-v4/
+assets/fonts/arial.ttf
+assets/fonts/Marker Felt.ttf
+smali/com/robtopx/

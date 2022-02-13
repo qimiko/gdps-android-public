@@ -1,0 +1,14 @@
+out/**
+aurav2/build/**
+aurav2/include/base/cmake_config.hpp
+
+gdps/**
+
+build/**
+keystore-pass
+
+textures/**
+crash/
+
+*.jar
+*.keystore

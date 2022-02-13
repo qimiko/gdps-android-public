@@ -1,0 +1,28 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build and strip release",
+			"type": "shell",
+			"command": "/usr/bin/cmake -DGDMOD_USE_IMGUI=OFF -DGDMOD_USE_SPDLOG=OFF -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_TOOLCHAIN_FILE:FILEPATH=/toolchain/android-ndk-r17c/build/cmake/android.toolchain.cmake -H/workspaces/gdps-android -B/workspaces/gdps-android/build -G \"Unix Makefiles\" && /usr/bin/cmake --build /workspaces/gdps-android/build --config Release --target install/strip -j 18 --",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build debug",
+			"type": "shell",
+			"command": "/usr/bin/cmake -DGDMOD_USE_IMGUI=ON -DGDMOD_USE_SPDLOG=ON -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_TOOLCHAIN_FILE:FILEPATH=/toolchain/android-ndk-r17c/build/cmake/android.toolchain.cmake -H/workspaces/gdps-android -B/workspaces/gdps-android/build -G \"Unix Makefiles\" && /usr/bin/cmake --build /workspaces/gdps-android/build --config Release --target install -j 18 --",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

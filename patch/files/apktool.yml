@@ -1,0 +1,22 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: gdps19.apk
+compressionType: false
+doNotCompress:
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '10'
+  targetSdkVersion: '16'
+sharedLibrary: false
+sparseResources: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.4.1
+versionInfo:
+  versionCode: '33'
+  versionName: 'U8.12'

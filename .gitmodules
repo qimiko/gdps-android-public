@@ -1,0 +1,15 @@
+[submodule "aurav2/Dobby"]
+	path = aurav2/external/Dobby
+	url = https://github.com/jmpews/Dobby
+[submodule "aurav2/external/rapidjson"]
+	path = aurav2/external/rapidjson
+	url = https://github.com/Tencent/rapidjson
+[submodule "aurav2/external/breakpad/breakpad"]
+	path = aurav2/external/breakpad/breakpad
+	url = https://chromium.googlesource.com/breakpad/breakpad.git
+[submodule "aurav2/external/imgui/imgui"]
+	path = aurav2/external/imgui/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "aurav2/external/spdlog"]
+	path = aurav2/external/spdlog
+	url = https://github.com/gabime/spdlog
