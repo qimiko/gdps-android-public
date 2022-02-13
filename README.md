@@ -32,3 +32,16 @@ The public repository will be updated upon each new release of the 1.9 GDPS. Onl
 ## Licensing
 
 This repository is licensed under the [Mozilla Public License v2.0](LICENSE).
+
+## Asset Credits
+
+* RobTop  
+  Many of the `-uhd` assets in the `patch/files` folder come from the PC version of Geometry Dash 1.9. Some textures in the `assets` folder also come from Geometry Dash.
+
+* Aroo  
+  Designed a majority of the textures that can be found in the `assets` folder.
+
+* EPSSounds  
+  Created the menu loop. Can be found at its [Newgrounds page](https://www.newgrounds.com/audio/listen/559315).
+
+_Main level song credits and creators can be found ingame._
