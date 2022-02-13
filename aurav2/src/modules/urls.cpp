@@ -11,10 +11,10 @@ constexpr auto& validate_str_length(char const (&s)[N])
 
 const std::vector<uint8_t> string_to_bytes(const char* s)
 {
-	// this is a mess but if it works it's fine
+    // this is a mess but if it works it's fine
     return std::vector<uint8_t>(
-			reinterpret_cast<uint8_t*>(const_cast<char*>(s)),
-			reinterpret_cast<uint8_t*>(const_cast<char*>(s + strlen(s) + 1))); // preserve null byte
+        reinterpret_cast<uint8_t*>(const_cast<char*>(s)),
+        reinterpret_cast<uint8_t*>(const_cast<char*>(s + strlen(s) + 1))); // preserve null byte
 }
 
 template <const int MAX_LEN, std::size_t N>
@@ -29,7 +29,7 @@ void CCHttpClient_send(cocos2d::extension::CCHttpClient* self, cocos2d::extensio
 
     spdlog::get("global")->trace("request being made to endpoint {}", url);
 
-	constexpr auto HOSTNAME_LENGTH = 18u;
+    constexpr auto HOSTNAME_LENGTH = 18u;
 
     const std::string url_boomlings = validate_str_length<HOSTNAME_LENGTH>("www.boomlings.com");
     const std::string url_replacement = validate_str_length<HOSTNAME_LENGTH>("gdps.nettik.co.uk");
@@ -42,7 +42,8 @@ void CCHttpClient_send(cocos2d::extension::CCHttpClient* self, cocos2d::extensio
     HookHandler::orig<&CCHttpClient_send>(self, x);
 }
 
-void GameManager_reloadAllStep3(GameManager* self) {
+void GameManager_reloadAllStep3(GameManager* self)
+{
     auto file = cocos2d::CCFileUtils::sharedFileUtils();
 
     file->setAndroidPath(Config::DATA_PATH);
