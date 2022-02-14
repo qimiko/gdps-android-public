@@ -130,10 +130,10 @@ bool patch_multiple_byte(uint8_t* addr, std::vector<uint8_t> bytes)
 
     if (mprotect(reinterpret_cast<void*>(ptr_page), GLOBAL_PAGESIZE * page_count, PROT_WRITE) == 0) {
         std::memcpy(addr, bytes.data(), sizeof(decltype(bytes)::value_type) * bytes.size());
-        mprotect(reinterpret_cast<void*>(ptr_page), GLOBAL_PAGESIZE * page_count, protection);
 
-        return true;
-    } else {
-        return false;
+        if (mprotect(reinterpret_cast<void*>(ptr_page), GLOBAL_PAGESIZE * page_count, protection) == 0) {
+            return true;
+        }
     }
+    return false;
 }

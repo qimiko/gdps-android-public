@@ -122,7 +122,9 @@ public:
     HookHandler& install_patch(const uintptr_t rel_addr, const std::vector<uint8_t>& bytes)
     {
         auto patch_ptr = ptr_to_offset<uint8_t>(GLOBAL_BASE, rel_addr);
-        patch_multiple_byte(patch_ptr, bytes);
+        if (!patch_multiple_byte(patch_ptr, bytes)) {
+            spdlog::get("global")->warn("bytepatch for addr {} failed in some way..!", rel_addr);
+        }
 
         return *this;
     }
