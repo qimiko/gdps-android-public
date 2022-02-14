@@ -552,6 +552,8 @@
     .prologue
     const/4 v0, 0x1
 
+    sparse-switch p1, :sswitch_data_0
+
     invoke-virtual {p2}, Landroid/view/KeyEvent;->getRepeatCount()I
 
     move-result v1
@@ -571,7 +573,23 @@
     invoke-virtual {p0, v1}, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView;->queueEvent(Ljava/lang/Runnable;)V
 
     :cond_0
+    :goto_0
     return v0
+
+    :sswitch_0
+
+    invoke-super {p0, p1, p2}, Landroid/opengl/GLSurfaceView;->onKeyDown(ILandroid/view/KeyEvent;)Z
+
+    move-result v0
+
+    goto :goto_0
+
+    :sswitch_data_0
+    .sparse-switch
+        0x18 -> :sswitch_0
+        0x19 -> :sswitch_0
+        0xA4 -> :sswitch_0
+    .end sparse-switch
 .end method
 
 .method public onKeyUp(ILandroid/view/KeyEvent;)Z
@@ -579,7 +597,10 @@
     .param p1, "pKeyCode"    # I
     .param p2, "pKeyEvent"    # Landroid/view/KeyEvent;
 
+    .prologue
     const/4 v0, 0x1
+
+    sparse-switch p1, :sswitch_data_0
 
     new-instance v1, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView$14;
 
@@ -587,7 +608,23 @@
 
     invoke-virtual {p0, v1}, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView;->queueEvent(Ljava/lang/Runnable;)V
 
+    :goto_0
     return v0
+
+    :sswitch_0
+
+    invoke-super {p0, p1, p2}, Landroid/opengl/GLSurfaceView;->onKeyUp(ILandroid/view/KeyEvent;)Z
+
+    move-result v0
+
+    goto :goto_0
+
+    :sswitch_data_0
+    .sparse-switch
+        0x18 -> :sswitch_0
+        0x19 -> :sswitch_0
+        0xA4 -> :sswitch_0
+    .end sparse-switch
 .end method
 
 .method public onPause()V
