@@ -785,7 +785,7 @@ bool SettingsPopup::init(int page)
             item.page->createPage();
 
             this->internalLayer_->addChild(item.page, 2);
-            item.page->setPosition(cocos2d::CCPoint((width / 2) - 81.0f, 52.0f));
+            item.page->setPosition(cocos2d::CCPoint(((window_size.width - width) / 2.0f) + 13.0f, 52.0f));
             item.page->setVisible(false);
 
             this->buttons_->addObject(toggle);
