@@ -102,6 +102,10 @@ if (GDMOD_DATA_PATH)
   target_compile_definitions(aurav2 PRIVATE "-DGDMOD_DATA_PATH=\"${GDMOD_DATA_PATH}\"")
 endif()
 
+if (GDMOD_SOURCE_URL)
+  target_compile_definitions(aurav2 PRIVATE "-DGDMOD_SOURCE_URL=\"${GDMOD_SOURCE_URL}\"")
+endif()
+
 add_definitions(-D__STDC_FORMAT_MACROS)
 add_subdirectory(external/breakpad)
 target_link_libraries(aurav2 Breakpad)

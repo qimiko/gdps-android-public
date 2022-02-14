@@ -18,6 +18,10 @@
 #define GDMOD_CRASH_UPLOAD_URL ""
 #endif
 
+#ifndef GDMOD_SOURCE_URL
+#define GDMOD_SOURCE_URL "https://github.com/qimiko/gdps-android-public"
+#endif
+
 namespace {
 // c++17 has a constexpr function for this but we don't!
 constexpr std::size_t length_of(const char* x) {
@@ -31,6 +35,7 @@ constexpr bool ENABLE_CRASH_DUMPS = GDMOD_ENABLE_CRASH_DUMPS;
 constexpr auto DATA_PATH = GDMOD_DATA_PATH;
 constexpr auto CRASH_UPLOAD_URL = GDMOD_CRASH_UPLOAD_URL;
 constexpr auto CRASH_ENABLED = length_of(CRASH_UPLOAD_URL) > 0;
+constexpr auto SOURCE_URL = GDMOD_SOURCE_URL;
 }
 
 #endif

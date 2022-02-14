@@ -194,6 +194,23 @@ public:
         this->_menu_objects.push_back(legal_button);
 
         legal_button->setPosition((-_window_dimensions.width / 2) + width - 20.0f, -(_window_dimensions.height / 2) + 35.0f);
+
+        auto source_sprite = ButtonSprite::create(
+            "Source", 220, 0, 0.4f, false, "bigFont.fnt", "GJ_button_04.png", 25.0f);
+
+        auto source_button = CCMenuItemSpriteExtra::create(
+            source_sprite, nullptr, this,
+            static_cast<cocos2d::SEL_MenuHandler>(&AboutSettingsPage::onSource));
+
+        this->_internal_menu->addChild(source_button);
+        this->_menu_objects.push_back(source_button);
+
+        source_button->setPosition((-_window_dimensions.width / 2) + width - 85.0f, -(_window_dimensions.height / 2) + 35.0f);
+    }
+
+    void onSource(cocos2d::CCObject*)
+    {
+        cocos2d::CCApplication::sharedApplication()->openURL(Config::SOURCE_URL);
     }
 
     void onLicense(cocos2d::CCObject* target)
