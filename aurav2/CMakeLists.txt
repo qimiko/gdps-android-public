@@ -90,6 +90,18 @@ if (GDMOD_USE_SPDLOG)
   target_link_libraries(aurav2 spdlog)
 endif()
 
+if (GDMOD_USE_CRASH_DUMPS)
+  target_compile_definitions(aurav2 PRIVATE -DGDMOD_ENABLE_CRASH_DUMPS)
+endif()
+
+if (GDMOD_CRASH_UPLOAD_URL)
+  target_compile_definitions(aurav2 PRIVATE "-DGDMOD_CRASH_UPLOAD_URL=\"${GDMOD_CRASH_UPLOAD_URL}\"")
+endif()
+
+if (GDMOD_DATA_PATH)
+  target_compile_definitions(aurav2 PRIVATE "-DGDMOD_DATA_PATH=\"${GDMOD_DATA_PATH}\"")
+endif()
+
 add_definitions(-D__STDC_FORMAT_MACROS)
 add_subdirectory(external/breakpad)
 target_link_libraries(aurav2 Breakpad)

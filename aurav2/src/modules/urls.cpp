@@ -57,7 +57,7 @@ namespace Urls {
 void Module::on_initialize()
 {
     HookHandler::get_handler()
-        .install_patch(0x46FB30, validate_string_as_bytes<37>("/data/data/com.kyurime.geometryjump/"))
+        .install_patch(0x46FB30, validate_string_as_bytes<37>(GDMOD_DATA_PATH))
         .install_patch(0x470FED, validate_string_as_bytes<27>("http://absolllute.com/tool"))
         .install_patch(0x472692, validate_string_as_bytes<38>("https://absolllute.com/api/1.9?join\0\0"))
         .install_patch(0x4726B8, validate_string_as_bytes<32>("https://absolllute.com/api/1.9\0"))

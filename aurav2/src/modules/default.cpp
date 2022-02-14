@@ -122,7 +122,7 @@ protected:
                 this,
                 reinterpret_cast<cocos2d::SEL_MenuHandler>(&CrashHelperPopup::onUpload));
 
-            if (!PlatformToolbox::isNetworkAvailable()) {
+            if (!PlatformToolbox::isNetworkAvailable() || !Config::CRASH_ENABLED) {
                 upload_btn->setColor({ 0xA6, 0xA6, 0xA6 });
             }
 
@@ -210,6 +210,20 @@ protected:
         }
         this->inUpload_ = true;
 
+        if constexpr (!Config::CRASH_ENABLED) {
+            FLAlertLayer::create(
+                nullptr,
+                "Upload Disabled",
+                "Your build of the game <cr>does not</c> have a <cl>crash upload endpoint</c> configured.",
+                "OK",
+                nullptr,
+                300.0f)
+                ->show();
+
+            this->inUpload_ = false;
+            return;
+        }
+
         if (!PlatformToolbox::isNetworkAvailable()) {
             FLAlertLayer::create(
                 nullptr,
@@ -250,7 +264,7 @@ protected:
             spdlog::get("global")->info("begin sending request");
 
             auto url_data = cocos2d::CCString::createWithFormat(
-                "https://api.xyze.dev/gd/crash?hash=%s-%s",
+                Config::CRASH_UPLOAD_URL,
                 CMakeConfiguration::BRANCH,
                 CMakeConfiguration::HASH);
             auto url_string = url_data->getCString();
