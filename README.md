@@ -29,6 +29,10 @@ This project follows a split publicity model. The public repository squashes all
 
 The public repository will be updated upon each new release of the 1.9 GDPS. Only the `main` branch from the public repository will be synced. Commits made to the public repository will be synced to the private repository when they are made. Merging will be dealt with personally.
 
+## Documentation
+
+Explanations for some parts of the code, including the crash reporter, can be found in the [docs folder](docs/).
+
 ## Licensing
 
 This repository is licensed under the [Mozilla Public License v2.0](LICENSE).
