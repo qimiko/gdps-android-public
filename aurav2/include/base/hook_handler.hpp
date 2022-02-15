@@ -10,6 +10,7 @@
 
 #if GDMOD_ENABLE_SPDLOG
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/fmt.h>
 #else
 #include "spdlog_fill.hpp"
 #endif
@@ -122,6 +123,15 @@ public:
     HookHandler& install_patch(const uintptr_t rel_addr, const std::vector<uint8_t>& bytes)
     {
         auto patch_ptr = ptr_to_offset<uint8_t>(GLOBAL_BASE, rel_addr);
+
+#if GDMOD_ENABLE_SPDLOG
+        auto orig_bytes = std::vector<uint8_t>(
+            patch_ptr, patch_ptr + (bytes.size() * sizeof(uint8_t))
+        );
+
+        spdlog::get("global")->trace("replacing bytes [{:#04x}] with [{:#04x}] for addr {:#x}", fmt::join(orig_bytes, ","), fmt::join(bytes, ","), rel_addr);
+#endif
+
         if (!patch_multiple_byte(patch_ptr, bytes)) {
             spdlog::get("global")->warn("bytepatch for addr {} failed in some way..!", rel_addr);
         }
