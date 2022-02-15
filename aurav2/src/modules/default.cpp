@@ -602,18 +602,15 @@ cocos2d::enumKeyCodes translateAndroidKeyCodeToWindows(int keyCode)
     };
 
     if (auto it = codes.find(keyCode); it != codes.end()) {
-        spdlog::get("global")->info("translating code {} to {}", it->first, static_cast<int>(it->second));
-
         return it->second;
     } else {
+        spdlog::get("global")->info("received unknown key code: {}", keyCode);
         return cocos2d::kCCEnumKeyCodesNone;
     }
 }
 
 bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyDown(void* env, int thiz, int keyCode)
 {
-    spdlog::get("global")->info("received key down input code: {}", keyCode);
-
     if (keyCode != 0x4 && keyCode != 0x52) {
         auto keyboard_dispatcher = cocos2d::CCDirector::sharedDirector()->getKeyboardDispatcher();
         auto translated_code = translateAndroidKeyCodeToWindows(keyCode);
@@ -650,9 +647,6 @@ bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyDown(void* env, int thiz, i
 
 extern "C" {
     [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyUp(void* env, int thiz, int keyCode) {
-
-        spdlog::get("global")->info("received key up input code: {}", keyCode);
-
         if (keyCode != 0x4 && keyCode != 0x52) {
             auto keyboard_dispatcher = cocos2d::CCDirector::sharedDirector()->getKeyboardDispatcher();
             auto translated_code = translateAndroidKeyCodeToWindows(keyCode);
