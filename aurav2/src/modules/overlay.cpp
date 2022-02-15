@@ -670,8 +670,6 @@ void CCTouchDispatcher_touches(cocos2d::CCTouchDispatcher* self, cocos2d::CCSet*
 {
     // note that touch support is still very buggy. like incredibly buggy
     // hopefully in the future it can be stabilized
-    // also imgui now uses event based inputs
-    // this code doesn't currently use it bc it's very weird
     if (!IS_ACTIVE) {
         HookHandler::orig<&CCTouchDispatcher_touches>(self, touches, event, index);
         return;
@@ -683,25 +681,31 @@ void CCTouchDispatcher_touches(cocos2d::CCTouchDispatcher* self, cocos2d::CCSet*
     bool pass_mouse_pos_to_gui = io.WantCaptureMouse;
 
     switch (index) {
-    case 0: // CCTOUCHBEGAN
-        io.MouseDown[0] = true;
-        pass_mouse_pos_to_gui = true;
+    case 0: { // CCTOUCHBEGAN
+        auto touch = reinterpret_cast<cocos2d::CCTouch*>(touches->anyObject());
+        if (touch != nullptr) {
+            auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
+            auto loc = touch->getLocationInView();
 
-        // there was some bugs regarding the mouse being in the wrong spot so this resolves it
-        [[fallthrough]];
+            io.AddMousePosEvent(loc.x * eglview->getScaleX(), loc.y * eglview->getScaleY());
+        }
+
+        io.AddMouseButtonEvent(0, true);
+        break;
+    }
     case 1: { // CCTOUCHMOVED
         auto touch = reinterpret_cast<cocos2d::CCTouch*>(touches->anyObject());
         if (touch != nullptr && pass_mouse_pos_to_gui) {
             auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
             auto loc = touch->getLocationInView();
 
-            io.MousePos = ImVec2(loc.x * eglview->getScaleX(), loc.y * eglview->getScaleY());
+            io.AddMousePosEvent(loc.x * eglview->getScaleX(), loc.y * eglview->getScaleY());
         }
         break;
     }
     case 2: // CCTOUCHENDED
     case 3: // CCTOUCHCANCELLED
-        io.MouseDown[0] = false;
+        io.AddMouseButtonEvent(0, false);
         break;
     }
 
