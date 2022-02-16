@@ -1040,6 +1040,81 @@
     .end packed-switch
 .end method
 
+.method public onGenericMotionEvent(Landroid/view/MotionEvent;)Z
+    .locals 5
+    .param p1, "pMotionEvent"    # Landroid/view/MotionEvent;
+
+    .prologue
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getAction()I
+    # extract action code from action
+
+    move-result v1
+
+    # i'm not entirely sure why the code moves it into another register
+    # i copied this from onTouchEvent btw
+    move/from16 v0, v1
+
+    # MotionEventCompat.ACTION_MASK
+    and-int/lit16 v0, v0, 0xff
+
+    move/from16 v1, v0
+
+    sparse-switch v1, :sswitch_data_0
+
+    invoke-super {p0, p1}, Landroid/opengl/GLSurfaceView;->onGenericMotionEvent(Landroid/view/MotionEvent;)Z
+
+    move-result v0
+
+    goto :goto_0
+
+    :goto_0
+    return v0
+
+    :sswitch_0 # handle ACTION_SCROLL
+
+    move-object/from16 v0, p1
+
+    const/16 v1, 0x9 # AXIS_VSCROLL
+
+    invoke-virtual {v0, v1}, Landroid/view/MotionEvent;->getAxisValue(I)F
+
+    move-result v2
+
+    move-object/from16 v0, p1
+
+    const/16 v1, 0xa # AXIS_HSCROLL
+
+    invoke-virtual {v0, v1}, Landroid/view/MotionEvent;->getAxisValue(I)F
+
+    move-result v3
+
+    new-instance v4, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView$15;
+
+    move-object/from16 v0, v4
+
+    move-object/from16 v1, p0
+
+    invoke-direct {v0, v1, v2, v3}, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView$15;-><init>(Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView;FF)V
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v4
+
+    invoke-virtual {v0, v1}, Lorg/cocos2dx/lib/Cocos2dxGLSurfaceView;->queueEvent(Ljava/lang/Runnable;)V
+
+    goto :goto_1
+
+    :goto_1
+    const/16 v0, 0x1
+
+    return v0
+
+    :sswitch_data_0
+    .sparse-switch
+        0x8 -> :sswitch_0
+    .end sparse-switch
+.end method
+
 .method public setCocos2dxEditText(Lorg/cocos2dx/lib/Cocos2dxEditText;)V
     .locals 2
     .param p1, "pCocos2dxEditText"    # Lorg/cocos2dx/lib/Cocos2dxEditText;

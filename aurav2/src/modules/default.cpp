@@ -646,7 +646,8 @@ bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyDown(void* env, int thiz, i
 }
 
 extern "C" {
-    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyUp(void* env, int thiz, int keyCode) {
+    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyUp(void* env, int thiz, int keyCode)
+    {
         if (keyCode != 0x4 && keyCode != 0x52) {
             auto keyboard_dispatcher = cocos2d::CCDirector::sharedDirector()->getKeyboardDispatcher();
             auto translated_code = translateAndroidKeyCodeToWindows(keyCode);
@@ -677,6 +678,13 @@ extern "C" {
 
             return keyboard_dispatcher->dispatchKeyboardMSG(translated_code, false);
         }
+
+        return true;
+    }
+
+    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeActionScroll(void* env, int thiz, float scrollX, float scrollY)
+    {
+        spdlog::get("global")->trace("scroll params: {} {}", scrollX, scrollY);
 
         return true;
     }

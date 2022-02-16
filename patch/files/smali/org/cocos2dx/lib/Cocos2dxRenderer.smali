@@ -87,6 +87,9 @@
 .method private static native nativeKeyUp(I)Z
 .end method
 
+.method private static native nativeActionScroll(FF)Z
+.end method
+
 .method public static setAnimationInterval(D)V
     .locals 2
     .param p0, "pAnimationInterval"    # D
@@ -216,6 +219,17 @@
 
     .prologue
     invoke-static {p1}, Lorg/cocos2dx/lib/Cocos2dxRenderer;->nativeKeyUp(I)Z
+
+    return-void
+.end method
+
+.method public handleActionScroll(FF)V
+    .locals 0
+    .param p1, "pScrollX"    # F
+    .param p2, "pScrollY"    # F
+
+    .prologue
+    invoke-static {p1, p2}, Lorg/cocos2dx/lib/Cocos2dxRenderer;->nativeActionScroll(FF)Z
 
     return-void
 .end method
