@@ -686,7 +686,14 @@ extern "C" {
     {
         spdlog::get("global")->trace("scroll params: {} {}", scrollX, scrollY);
 
-        return true;
+        // android scroll values: [-1, 1], -1 is down on the scroll
+        // windows scroll values: [-120, 120], 120 is down on the scroll
+        // but rob uses glfw thanks robtop, no idea what changed with the values but they different
+
+        constexpr auto SCROLL_FACTOR = -15.0f;
+
+        return cocos2d::CCDirector::sharedDirector()->getMouseDispatcher()->dispatchScrollMSG(
+            scrollX * SCROLL_FACTOR, scrollY * SCROLL_FACTOR);
     }
 }
 

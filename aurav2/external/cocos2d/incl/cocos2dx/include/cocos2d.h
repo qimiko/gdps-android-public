@@ -301,6 +301,7 @@ THE SOFTWARE.
 
 //New Classes
 #include "custom/Delegates/CCKeyboardDispatcher.h"
+#include "custom/Delegates/CCMouseDispatcher.h"
 #include "custom/Sprites/CCSpriteExtra/CCSpriteExtra.h"
 NS_CC_BEGIN
 
