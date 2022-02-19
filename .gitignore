@@ -10,5 +10,7 @@ keystore-pass
 textures/**
 crash/
 
+assets/built/**
+
 *.jar
 *.keystore
