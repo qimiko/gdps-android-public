@@ -2,8 +2,6 @@
 #ifndef SPDLOG_FILL_HPP
 #define SPDLOG_FILL_HPP
 
-#include <memory>
-
 namespace spdlog {
 
 namespace {
