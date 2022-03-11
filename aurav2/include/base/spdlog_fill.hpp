@@ -15,6 +15,9 @@ struct logger_fill {
     template <typename... A>
     constexpr void trace([[maybe_unused]] A...) const { }
 
+    template <typename... A>
+    constexpr void warn([[maybe_unused]] A...) const { }
+
     constexpr logger_fill() { }
 };
 
