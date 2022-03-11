@@ -7,7 +7,7 @@
    <key>GJ_aboutBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{267,0},{60,60}}</string>
+    <string>{{0,267},{60,60}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -18,7 +18,7 @@
    <key>GJ_adminBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{0,0},{88,88}}</string>
+    <string>{{267,89},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -29,7 +29,7 @@
    <key>GJ_coinBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{89,89},{88,88}}</string>
+    <string>{{178,178},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -40,7 +40,7 @@
    <key>GJ_creatorBadge_01_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{89,178},{88,88}}</string>
+    <string>{{0,178},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -51,7 +51,7 @@
    <key>GJ_creatorBadge_10_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{178,178},{88,88}}</string>
+    <string>{{89,89},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -62,7 +62,7 @@
    <key>GJ_creatorBadge_50_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{178,89},{88,88}}</string>
+    <string>{{178,0},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -73,7 +73,7 @@
    <key>GJ_developerBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{0,267},{88,88}}</string>
+    <string>{{0,89},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -81,10 +81,21 @@
     <key>sourceSize</key>
     <string>{88,88}</string>
    </dict>
+   <key>GJ_editorBadge_001.png</key>
+   <dict>
+    <key>frame</key>
+    <string>{{328,178},{60,60}}</string>
+    <key>offset</key>
+    <string>{0,0}</string>
+    <key>rotated</key>
+    <false/>
+    <key>sourceSize</key>
+    <string>{60,60}</string>
+   </dict>
    <key>GJ_gameplayBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{267,61},{60,60}}</string>
+    <string>{{61,267},{60,60}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -95,7 +106,7 @@
    <key>GJ_globalBadge_01_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{0,89},{88,88}}</string>
+    <string>{{267,0},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -106,7 +117,7 @@
    <key>GJ_globalBadge_10_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{0,178},{88,88}}</string>
+    <string>{{89,178},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -117,7 +128,7 @@
    <key>GJ_globalBadge_50_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{178,0},{88,88}}</string>
+    <string>{{178,89},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -125,10 +136,21 @@
     <key>sourceSize</key>
     <string>{88,88}</string>
    </dict>
+   <key>GJ_graphicsBadge_001.png</key>
+   <dict>
+    <key>frame</key>
+    <string>{{267,239},{60,60}}</string>
+    <key>offset</key>
+    <string>{0,0}</string>
+    <key>rotated</key>
+    <false/>
+    <key>sourceSize</key>
+    <string>{60,60}</string>
+   </dict>
    <key>GJ_interfaceBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{267,122},{60,60}}</string>
+    <string>{{122,267},{60,60}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -139,7 +161,7 @@
    <key>GJ_modBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{89,0},{88,88}}</string>
+    <string>{{0,0},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -150,7 +172,7 @@
    <key>GJ_songsBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{178,267},{60,60}}</string>
+    <string>{{267,178},{60,60}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -161,7 +183,7 @@
    <key>GJ_trollBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{89,267},{88,88}}</string>
+    <string>{{89,0},{88,88}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>
@@ -172,7 +194,7 @@
    <key>GJ_tweaksBadge_001.png</key>
    <dict>
     <key>frame</key>
-    <string>{{267,183},{60,60}}</string>
+    <string>{{183,267},{60,60}}</string>
     <key>offset</key>
     <string>{0,0}</string>
     <key>rotated</key>

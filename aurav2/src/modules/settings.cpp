@@ -755,10 +755,10 @@ bool SettingsPopup::init(int page)
         std::array<SettingsItem, 7> items { {
             { "Gameplay", "GJ_gameplayBadge_001.png", 0.37f, GameplaySettingsPage::create() },
             { "Interface", "GJ_interfaceBadge_001.png", 0.36f, InterfaceSettingsPage::create() },
-            { "Editor", "GJ_sDownloadIcon_001.png", 0.5f, EditorSettingsPage::create() },
+            { "Editor", "GJ_editorBadge_001.png", 0.5f, EditorSettingsPage::create() },
             { "Songs", "GJ_songsBadge_001.png", 0.5f, SongsSettingsPage::create() },
             { "Tweaks", "GJ_tweaksBadge_001.png", 0.47f, TweaksSettingsPage::create() },
-            { "Graphics", "GJ_sRecentIcon_001.png", 0.36f, GraphicsSettingsPage::create() },
+            { "Graphics", "GJ_graphicsBadge_001.png", 0.36f, GraphicsSettingsPage::create() },
             { "About", "GJ_aboutBadge_001.png", 0.5f, AboutSettingsPage::create() },
         } };
 

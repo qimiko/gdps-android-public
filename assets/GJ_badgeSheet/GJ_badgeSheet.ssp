@@ -12,7 +12,7 @@
     "pngOptMode": "Lossless",
     "premultiplied": true,
     "prependSmartFolderName": false,
-    "rotateSprites": true,
+    "rotateSprites": false,
     "scalingVariants": [
         {
             "forceSquared": false,
@@ -54,11 +54,12 @@
         "GJ_gameplayBadge_001.png",
         "GJ_interfaceBadge_001.png",
         "GJ_songsBadge_001.png",
-        "GJ_tweaksBadge_001.png"
+        "GJ_tweaksBadge_001.png",
+        "GJ_graphicsBadge_001.png"
     ],
     "textureBorder": 0,
     "trimMode": "Polygon",
     "trimSpriteNames": false,
-    "trimThreshold": 1,
+    "trimThreshold": 0,
     "webpQuality": 80
 }
