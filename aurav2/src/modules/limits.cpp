@@ -12,7 +12,7 @@ void Module::on_initialize()
         .install_patch(0x1DA774, max_length)
         .install_patch(0x1EAC3C, { 0x04, 0xE0 })
         .install_patch(0x1EB6EC, { 0xC3, 0xE7 })
-        .install_patch(0x23C720, { 0x09 })
+        .install_patch(0x23C790, { 0x09 })
         .install_patch(0x1F2ECC, { 0x09 });
 }
 } // namespace Limits
