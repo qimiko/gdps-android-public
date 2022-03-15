@@ -54,9 +54,7 @@ auto GLOBAL_EXCEPTION_HANDLER = std::unique_ptr<google_breakpad::ExceptionHandle
 
     auto logger = std::make_shared<spdlog::logger>("global", std::begin(sinks), std::end(sinks));
     spdlog::register_logger(logger);
-    logger->info("1.9 GDPS u{}.{}.{}",
-        CMakeConfiguration::VER_MAJOR, CMakeConfiguration::VER_MINOR,
-        CMakeConfiguration::VER_PATCH);
+    logger->info("1.9 GDPS u{}", CMakeConfiguration::VERSION);
 
     logger->info("initializing error logger");
 #endif

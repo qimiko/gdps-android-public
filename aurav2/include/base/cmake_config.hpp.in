@@ -6,9 +6,7 @@ namespace CMakeConfiguration {
 	constexpr auto HASH = "@GIT_SHA1@";
 	constexpr auto BRANCH = "@GIT_BRANCH@";
 
-	constexpr auto VER_MAJOR = @aurav2_VERSION_MAJOR@;
-	constexpr auto VER_MINOR = @aurav2_VERSION_MINOR@;
-	constexpr auto VER_PATCH = @aurav2_VERSION_PATCH@;
+	constexpr auto VERSION = "@aurav2_VERSION@";
 
 	constexpr auto COMPILE_TIME = "@COMPILE_TIME@";
 }

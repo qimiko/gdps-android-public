@@ -364,9 +364,7 @@ void imgui_draw_vars_window()
 
 void imgui_draw_overlay_options()
 {
-    auto title_string = cocos2d::CCString::createWithFormat("1.9 GDPS u%i.%i.%i",
-        CMakeConfiguration::VER_MAJOR, CMakeConfiguration::VER_MINOR,
-        CMakeConfiguration::VER_PATCH);
+    auto title_string = cocos2d::CCString::createWithFormat("1.9 GDPS u%s", CMakeConfiguration::VERSION);
 
     ImGui::Begin(title_string->getCString(), &SHOW_DEBUG_OPTIONS, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize);
 

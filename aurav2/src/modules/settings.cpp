@@ -125,8 +125,7 @@ public:
         auto internal_layer = cocos2d::CCLayer::create();
         this->addChild(internal_layer);
 
-        auto title_string = cocos2d::CCString::createWithFormat("1.9 GDPS u%i.%i.%i",
-            CMakeConfiguration::VER_MAJOR, CMakeConfiguration::VER_MINOR, CMakeConfiguration::VER_PATCH);
+        auto title_string = cocos2d::CCString::createWithFormat("1.9 GDPS u%s", CMakeConfiguration::VERSION);
 
         auto title = cocos2d::CCLabelBMFont::create(title_string->getCString(), "bigFont.fnt");
         internal_layer->addChild(title);
