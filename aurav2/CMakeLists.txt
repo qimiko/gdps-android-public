@@ -5,7 +5,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(ANDROID_STL gnustl_static)
 
-project(aurav2 VERSION 8.1.2)
+project(aurav2 VERSION 8.1.2.1)
 
 option(GDMOD_USE_IMGUI "Enable ImGui and logging constants" OFF)
 option(GDMOD_USE_SPDLOG "Enable spdlog" OFF)

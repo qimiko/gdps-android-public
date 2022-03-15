@@ -10,7 +10,7 @@ set(ANDROID_ABI armeabi-v7a)
 
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/gdps/lib/${ANDROID_ABI}/)
 
-project(gdps VERSION 8.1.1)
+project(gdps VERSION 8.1.2.1)
 
 add_subdirectory(aurav2)
 

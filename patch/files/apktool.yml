@@ -18,5 +18,5 @@ usesFramework:
   tag: null
 version: 2.4.1
 versionInfo:
-  versionCode: '33'
-  versionName: 'U8.12'
+  versionCode: '34'
+  versionName: 'U8.1.2.1'
