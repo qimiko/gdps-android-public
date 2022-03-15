@@ -22,7 +22,7 @@ protected:
 
     void onToggleLayer(cocos2d::CCObject* target);
 
-    void toggleLayer(int layer);
+    void toggleLayer(uint32_t layer);
 
     cocos2d::CCArray* buttons_;
     cocos2d::CCArray* layers_;

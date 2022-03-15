@@ -22,7 +22,7 @@ bool remove_hook(uintptr_t addr)
 void setup_handle()
 {
     Dl_info p;
-    dladdr((void*)&AppDelegate::get, &p);
+    dladdr(reinterpret_cast<void*>(&AppDelegate::get), &p);
 
     GLOBAL_BASE = p.dli_fbase;
 

@@ -30,7 +30,7 @@ void imgui_stylecolorslightgreen(ImGuiStyle* dst)
 {
     // copied from https://github.com/ocornut/imgui/issues/707#issuecomment-439117182
     ImGuiStyle* style = dst ? dst : &ImGui::GetStyle();
-    ImVec4* colors = style->Colors;
+    ImVec4 *colors = style->Colors; // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 
     style->WindowRounding = 3.0f; // Radius of window corners rounding. Set to 0.0f to have rectangular windows
     style->ScrollbarRounding = 3.0f; // Radius of grab corners rounding for scrollbar
@@ -54,48 +54,48 @@ void imgui_stylecolorslightgreen(ImGuiStyle* dst)
     style->WindowTitleAlign = ImVec2(0.5f, 0.5f);
     style->PopupRounding = 3.0f;
 
-    colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
-    colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-    colors[ImGuiCol_WindowBg] = ImVec4(0.86f, 0.86f, 0.86f, 1.00f);
+    colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_WindowBg] = ImVec4(0.86f, 0.86f, 0.86f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     // colors[ImGuiCol_ChildWindowBg]         = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-    colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-    colors[ImGuiCol_PopupBg] = ImVec4(0.93f, 0.93f, 0.93f, 0.98f);
-    colors[ImGuiCol_Border] = ImVec4(0.71f, 0.71f, 0.71f, 0.08f);
-    colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.04f);
-    colors[ImGuiCol_FrameBg] = ImVec4(0.71f, 0.71f, 0.71f, 0.55f);
-    colors[ImGuiCol_FrameBgHovered] = ImVec4(0.94f, 0.94f, 0.94f, 0.55f);
-    colors[ImGuiCol_FrameBgActive] = ImVec4(0.71f, 0.78f, 0.69f, 0.98f);
-    colors[ImGuiCol_TitleBg] = ImVec4(0.85f, 0.85f, 0.85f, 1.00f);
-    colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.82f, 0.78f, 0.78f, 0.51f);
-    colors[ImGuiCol_TitleBgActive] = ImVec4(0.78f, 0.78f, 0.78f, 1.00f);
-    colors[ImGuiCol_MenuBarBg] = ImVec4(0.86f, 0.86f, 0.86f, 1.00f);
-    colors[ImGuiCol_ScrollbarBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-    colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.00f, 0.00f, 0.00f, 0.10f);
-    colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.00f, 0.00f, 0.00f, 0.15f);
-    colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.00f, 0.00f, 0.00f, 0.20f);
-    colors[ImGuiCol_CheckMark] = ImVec4(0.184f, 0.407f, 0.193f, 1.00f);
-    colors[ImGuiCol_SliderGrab] = ImVec4(0.184f, 0.407f, 0.193f, 0.78f);
-    colors[ImGuiCol_SliderGrabActive] = ImVec4(0.184f, 0.407f, 0.193f, 1.00f);
-    colors[ImGuiCol_Button] = ImVec4(0.71f, 0.78f, 0.69f, 0.40f);
-    colors[ImGuiCol_ButtonHovered] = ImVec4(0.725f, 0.805f, 0.702f, 1.00f);
-    colors[ImGuiCol_ButtonActive] = ImVec4(0.793f, 0.900f, 0.836f, 1.00f);
-    colors[ImGuiCol_Header] = ImVec4(0.71f, 0.78f, 0.69f, 0.31f);
-    colors[ImGuiCol_HeaderHovered] = ImVec4(0.71f, 0.78f, 0.69f, 0.80f);
-    colors[ImGuiCol_HeaderActive] = ImVec4(0.71f, 0.78f, 0.69f, 1.00f);
-    colors[ImGuiCol_Separator] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
-    colors[ImGuiCol_SeparatorHovered] = ImVec4(0.14f, 0.44f, 0.80f, 0.78f);
-    colors[ImGuiCol_SeparatorActive] = ImVec4(0.14f, 0.44f, 0.80f, 1.00f);
-    colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.00f);
-    colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.26f, 0.59f, 0.98f, 0.45f);
-    colors[ImGuiCol_ResizeGripActive] = ImVec4(0.26f, 0.59f, 0.98f, 0.78f);
-    colors[ImGuiCol_PlotLines] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
-    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
-    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
-    colors[ImGuiCol_TextSelectedBg] = ImVec4(0.26f, 0.59f, 0.98f, 0.35f);
-    colors[ImGuiCol_DragDropTarget] = ImVec4(0.26f, 0.59f, 0.98f, 0.95f);
-    colors[ImGuiCol_NavHighlight] = colors[ImGuiCol_HeaderHovered];
-    colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.70f, 0.70f, 0.70f, 0.70f);
+    colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_PopupBg] = ImVec4(0.93f, 0.93f, 0.93f, 0.98f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_Border] = ImVec4(0.71f, 0.71f, 0.71f, 0.08f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.04f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_FrameBg] = ImVec4(0.71f, 0.71f, 0.71f, 0.55f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_FrameBgHovered] = ImVec4(0.94f, 0.94f, 0.94f, 0.55f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_FrameBgActive] = ImVec4(0.71f, 0.78f, 0.69f, 0.98f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_TitleBg] = ImVec4(0.85f, 0.85f, 0.85f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.82f, 0.78f, 0.78f, 0.51f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_TitleBgActive] = ImVec4(0.78f, 0.78f, 0.78f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_MenuBarBg] = ImVec4(0.86f, 0.86f, 0.86f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ScrollbarBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.00f, 0.00f, 0.00f, 0.10f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.00f, 0.00f, 0.00f, 0.15f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.00f, 0.00f, 0.00f, 0.20f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_CheckMark] = ImVec4(0.184f, 0.407f, 0.193f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_SliderGrab] = ImVec4(0.184f, 0.407f, 0.193f, 0.78f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_SliderGrabActive] = ImVec4(0.184f, 0.407f, 0.193f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_Button] = ImVec4(0.71f, 0.78f, 0.69f, 0.40f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ButtonHovered] = ImVec4(0.725f, 0.805f, 0.702f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ButtonActive] = ImVec4(0.793f, 0.900f, 0.836f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_Header] = ImVec4(0.71f, 0.78f, 0.69f, 0.31f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_HeaderHovered] = ImVec4(0.71f, 0.78f, 0.69f, 0.80f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_HeaderActive] = ImVec4(0.71f, 0.78f, 0.69f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_Separator] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_SeparatorHovered] = ImVec4(0.14f, 0.44f, 0.80f, 0.78f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_SeparatorActive] = ImVec4(0.14f, 0.44f, 0.80f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.26f, 0.59f, 0.98f, 0.45f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_ResizeGripActive] = ImVec4(0.26f, 0.59f, 0.98f, 0.78f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_PlotLines] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_TextSelectedBg] = ImVec4(0.26f, 0.59f, 0.98f, 0.35f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_DragDropTarget] = ImVec4(0.26f, 0.59f, 0.98f, 0.95f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_NavHighlight] = colors[ImGuiCol_HeaderHovered]; // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.70f, 0.70f, 0.70f, 0.70f); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 }
 
 std::string get_name_for_node(cocos2d::CCNode* node)
@@ -130,6 +130,7 @@ void draw_tree_for_node(cocos2d::CCNode* node)
             auto py = node->getPositionY();
             float pos_vals[] = { px, py };
 
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             if (ImGui::DragFloat2("Pos.", pos_vals, 0.1f, -FLT_MAX, FLT_MAX, "%.1f")) {
                 node->setPosition(cocos2d::CCPoint(pos_vals[0], pos_vals[1]));
             }
@@ -141,6 +142,7 @@ void draw_tree_for_node(cocos2d::CCNode* node)
             auto sy = node->getScaleY();
             float scale_vals[] = { scale, sx, sy };
 
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             if (ImGui::DragFloat3("Scale", scale_vals, 0.01f, -FLT_MAX, FLT_MAX, "%.2f")) {
                 if (scale_vals[1] == scale_vals[2]) {
                     node->setScale(scale_vals[0]);
@@ -157,6 +159,7 @@ void draw_tree_for_node(cocos2d::CCNode* node)
             auto ry = node->getRotationY();
             float rot_vals[] = { rotation, rx, ry };
 
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             if (ImGui::DragFloat3("Rot.", rot_vals, 0.1f, -FLT_MAX, FLT_MAX, "%.1f")) {
                 if (rot_vals[1] == rot_vals[2]) {
                     node->setRotation(rot_vals[0]);
@@ -180,8 +183,13 @@ void draw_tree_for_node(cocos2d::CCNode* node)
             auto color = c_node->getColor();
             auto opacity = c_node->getOpacity();
 
-            float color_vals[] = { color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, opacity / 255.0f };
+            float color_vals[] = {
+                static_cast<float>(color.r) / 255.0f,
+                static_cast<float>(color.g) / 255.0f,
+                static_cast<float>(color.b) / 255.0f,
+                static_cast<float>(opacity) / 255.0f };
 
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
             if (ImGui::ColorEdit4("Color", color_vals, ImGuiColorEditFlags_Uint8)) {
                 c_node->setColor({ static_cast<uint8_t>(color_vals[0] * 255),
                     static_cast<uint8_t>(color_vals[1] * 255),
@@ -583,7 +591,7 @@ void imgui_init()
         font_cfg.SizePixels = default_font_size;
         io.Fonts->AddFontDefault(&font_cfg);
     } else {
-        io.Fonts->AddFontFromMemoryTTF(font_buffer, size, default_font_size);
+        io.Fonts->AddFontFromMemoryTTF(font_buffer, static_cast<int>(size), default_font_size);
         //        delete[] font_buffer; // leaving this open causes memory dealloc crashes
     }
 
@@ -621,7 +629,11 @@ void CCDirector_drawScene(cocos2d::CCDirector* self)
             auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
             auto pixel_size = eglview->getFrameSize();
 
-            GAME_TEX = cocos2d::CCRenderTexture::create(pixel_size.width, pixel_size.height, cocos2d::kCCTexture2DPixelFormat_RGBA4444);
+            GAME_TEX = cocos2d::CCRenderTexture::create(
+                static_cast<int>(pixel_size.width),
+                static_cast<int>(pixel_size.height),
+                cocos2d::kCCTexture2DPixelFormat_RGBA4444
+            );
             GAME_TEX->retain();
         }
 
@@ -655,7 +667,7 @@ int CCApplication_run(cocos2d::CCApplication* self)
     return r;
 }
 
-void CCEGLView_end(cocos2d::CCEGLView* self)
+void CCEGLView_end(cocos2d::CCEGLView* /* self */)
 {
     // something causes a crash, somewhere. doesn't seem to break data though
     if (IS_ACTIVE) {

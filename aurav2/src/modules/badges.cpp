@@ -16,7 +16,7 @@ enum class CommentBadge : uint16_t {
     Moderator = 1 << 14,
     Admin = 1 << 15,
 };
-typedef std::underlying_type_t<CommentBadge> badge_storage_t;
+using badge_storage_t = std::underlying_type_t<CommentBadge>;
 
 struct CommentBadgeHash {
     template <typename T>
@@ -66,6 +66,9 @@ std::string badge_to_texture(CommentBadge badge)
 }
 
 class GJCommentExt : public cocos2d::CCObject {
+public:
+    GJCommentExt() : _customColor({ 0xFF, 0xFF, 0xFF }), _hasSetColor(false) {}
+
     CC_SYNTHESIZE(std::bitset<std::numeric_limits<badge_storage_t>::digits>, _enumBitVal, EnumBitVal);
     CC_SYNTHESIZE(cocos2d::ccColor3B, _customColor, CustomColor);
     CC_SYNTHESIZE(bool, _hasSetColor, HasSetColor);
@@ -86,7 +89,7 @@ GJComment* GJComment_create(cocos2d::CCDictionary* dict)
 
     if (comment_obj->getUserID() == 17414 || comment_obj->getUserID() == 16144) {
         // zylsia or great
-        ext_obj->setEnumBitVal(ext_obj->getEnumBitVal().set(12, 1));
+        ext_obj->setEnumBitVal(ext_obj->getEnumBitVal().set(12, true));
     }
 
     return comment_obj;
@@ -165,7 +168,7 @@ GJUserScore* GJUserScore_create(cocos2d::CCDictionary* dict)
 
     if (score_obj->getUserID() == 17414 || score_obj->getUserID() == 16144) {
         // zylsia or great
-        ext_obj->setEnumBitVal(ext_obj->getEnumBitVal().set(12, 1));
+        ext_obj->setEnumBitVal(ext_obj->getEnumBitVal().set(12, true));
     }
 
     return score_obj;

@@ -4,7 +4,7 @@ class SettingsPage : public cocos2d::CCLayer {
 public:
     virtual void createPage() = 0;
 
-    bool init() {
+    bool init() override {
 //        this->_internal_menu = cocos2d::CCMenu::create();
 //        this->addChild(this->_internal_menu);
 //        this->_internal_menu->setPosition(0.0f, 0.0f);
@@ -12,11 +12,11 @@ public:
         return true;
     }
 
-    void setDimensions(const cocos2d::CCSize dimensions) {
+    void setDimensions(const cocos2d::CCSize& dimensions) {
         this->_dimensions = dimensions;
     }
 
-    void setWindowDimensions(const cocos2d::CCSize dimensions) {
+    void setWindowDimensions(const cocos2d::CCSize& dimensions) {
         this->_window_dimensions = dimensions;
     }
 
@@ -32,7 +32,7 @@ public:
 
 protected:
     std::vector<cocos2d::CCNode*> _menu_objects;
-    cocos2d::CCMenu* _internal_menu;
+    cocos2d::CCMenu* _internal_menu = nullptr;
     cocos2d::CCSize _dimensions;
     cocos2d::CCSize _window_dimensions;
 };
@@ -80,15 +80,15 @@ protected:
     }
 
     float getNextToggleMenuY() {
-        return (_window_dimensions.height / 2) - ((this->_toggle_count + 1) * 40.0f) - 23.0f;
+        return (_window_dimensions.height / 2) - (static_cast<float>(this->_toggle_count + 1) * 40.0f) - 23.0f;
     }
 
     std::unordered_map<uint32_t, std::string> _info_text;
-    uint32_t _toggle_count;
+    uint32_t _toggle_count = 0;
 
 public:
     template <uint32_t V>
-    void onToggleVariable(cocos2d::CCObject* taBarrySilbertet)
+    void onToggleVariable(cocos2d::CCObject* /* target */)
     {
         auto var_string = cocos2d::CCString::createWithFormat("%04d", V);
 
@@ -117,7 +117,7 @@ struct SettingsItem {
 
 class AboutSettingsPage : public SettingsPage {
 public:
-    void createPage()
+    void createPage() override
     {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
@@ -213,7 +213,7 @@ public:
         cocos2d::CCApplication::sharedApplication()->openURL(Config::SOURCE_URL);
     }
 
-    void onLicense(cocos2d::CCObject* target)
+    void onLicense(cocos2d::CCObject* /* target */)
     {
         // due to character restrictions, we might have to change this at some point
         // limit is 1000 characters, as defined in
@@ -241,12 +241,12 @@ This modified application is provided under the assumption and restriction that 
         license_dialog->show();
     }
 
-    CREATE_FUNC(AboutSettingsPage);
+    CREATE_FUNC(AboutSettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class GameplaySettingsPage : public ToggleSettingsPage {
 public:
-    void createPage() {
+    void createPage() override {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
 
@@ -288,12 +288,12 @@ public:
             "Shortens reset time in practice mode from 1 second to 0.5 seconds.");
     }
 
-    CREATE_FUNC(GameplaySettingsPage);
+    CREATE_FUNC(GameplaySettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class InterfaceSettingsPage : public ToggleSettingsPage {
 public:
-    void createPage() {
+    void createPage() override {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
 
@@ -335,12 +335,12 @@ public:
             "Shows an extra two digits of precision on the ingame progress bar. Does not apply anywhere else.");
     }
 
-    CREATE_FUNC(InterfaceSettingsPage);
+    CREATE_FUNC(InterfaceSettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class TweaksSettingsPage : public ToggleSettingsPage {
 public:
-    void createPage() {
+    void createPage() override {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
 
@@ -374,12 +374,12 @@ public:
             static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4090>));
     }
 
-    CREATE_FUNC(TweaksSettingsPage);
+    CREATE_FUNC(TweaksSettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class EditorSettingsPage : public ToggleSettingsPage {
 public:
-    void createPage()
+    void createPage() override
     {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
@@ -417,12 +417,12 @@ public:
             "Adds various unused objects to the editor for use.");
     }
 
-    CREATE_FUNC(EditorSettingsPage);
+    CREATE_FUNC(EditorSettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class SongsSettingsPage : public ToggleSettingsPage {
 public:
-    void createPage()
+    void createPage() override
     {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
@@ -468,7 +468,7 @@ public:
         song_browser_button->setPosition(-((_window_dimensions.width / 2) - 5), -(_window_dimensions.height / 2) + 5);
     }
 
-    void onSongBrowser(cocos2d::CCObject* target) {
+    void onSongBrowser(cocos2d::CCObject* /* target */) {
       auto song_browser = GJSongBrowser::create(nullptr);
 
       auto director = cocos2d::CCDirector::sharedDirector();
@@ -477,12 +477,12 @@ public:
       song_browser->showLayer(false);
     }
 
-    CREATE_FUNC(SongsSettingsPage);
+    CREATE_FUNC(SongsSettingsPage); // NOLINT(modernize-use-auto)
 };
 
 class GraphicsSettingsPage : public SettingsPage {
 public:
-    void createPage()
+    void createPage() override
     {
         float width = this->_dimensions.width;
         float height = this->_dimensions.height;
@@ -563,7 +563,7 @@ public:
         }
     }
 
-    CREATE_FUNC(GraphicsSettingsPage);
+    CREATE_FUNC(GraphicsSettingsPage); // NOLINT(modernize-use-auto)
 
 protected:
     const char* labelForQuality(cocos2d::TextureQuality quality)
@@ -604,21 +604,21 @@ protected:
         this->_quality_label->setString(labelForQuality(this->_selected_quality));
     }
 
-    cocos2d::CCLabelBMFont* _quality_label;
-    CCMenuItemSpriteExtra* _apply_button;
-    cocos2d::TextureQuality _selected_quality;
+    cocos2d::CCLabelBMFont* _quality_label = nullptr;
+    CCMenuItemSpriteExtra* _apply_button = nullptr;
+    cocos2d::TextureQuality _selected_quality = cocos2d::kCCTextureQualityLow;
 };
 
 namespace {
 
-void OptionsLayer_onOptions(OptionsLayer* self, cocos2d::CCObject* target)
+void OptionsLayer_onOptions(OptionsLayer* /* self */, cocos2d::CCObject* /* target */)
 {
     Settings::SettingsPopup::create()->show();
 }
 
 class LevelInfoLayerExt : public cocos2d::CCLayer {
 public:
-    void onOptions(cocos2d::CCObject * target)
+    void onOptions(cocos2d::CCObject * /* target */)
     {
         Settings::SettingsPopup::create()->show();
     }
@@ -830,7 +830,7 @@ void SettingsPopup::onToggleLayer(cocos2d::CCObject* target)
     this->toggleLayer(n_target->getTag());
 }
 
-void SettingsPopup::toggleLayer(int layer)
+void SettingsPopup::toggleLayer(uint32_t layer)
 {
     if (this->layers_ == nullptr) {
         return;

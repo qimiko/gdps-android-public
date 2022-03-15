@@ -31,6 +31,8 @@ endif()
 
 add_library(aurav2 SHARED ${GDMOD_SOURCES})
 
+set_property(TARGET aurav2 PROPERTY CXX_CLANG_TIDY "${ANDROID_LLVM_TOOLCHAIN_PREFIX}clang-tidy${ANDROID_TOOLCHAIN_SUFFIX}")
+
 set(GDMOD_INCLUDE 
   ${CMAKE_CURRENT_SOURCE_DIR}/external/cocos2d/
   ${CMAKE_CURRENT_SOURCE_DIR}/external/fmod/

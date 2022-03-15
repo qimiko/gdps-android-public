@@ -5,25 +5,24 @@ constexpr auto OFFICIAL_GD_NAME = "com.robtopx.geometryjump";
 bool IS_GD_INSTALLED = false;
 int LAST_ERRNO_CODE = 0;
 
-bool is_package_installed(std::string package_name)
+bool is_package_installed(const std::string& package_name)
 {
-    FILE* fp;
-
     const std::string package_prefix = "/data/data/";
     std::string path_str = package_prefix + package_name + "/";
 
     // the cos8o method, access denied vs. not found error
-    fp = fopen(path_str.c_str(), "r");
+    std::ifstream f;
+    f.open(path_str);
 
     spdlog::get("global")->info("err on accessing {}: {} ({})", path_str, strerror(errno), errno);
 
     LAST_ERRNO_CODE = errno;
     switch (errno) {
     case 0: // success
-    case 13: // access denied
+    case EACCES: // access denied
         return true;
     default:
-    case 2: // no such file/directory
+    case ENOENT: // no such file/directory
         return false;
     }
 }
@@ -37,22 +36,22 @@ std::string get_last_crash_name()
 {
     auto largest_mtime = 0u;
 
-    struct dirent* ep;
     auto last_filename = std::string();
     auto directory = opendir(get_log_path().c_str());
 
     if (directory != nullptr) {
-        while ((ep = readdir(directory))) {
+        while (auto ep = readdir(directory)) {
             // strip .. and .
+
             if (ep->d_name[0] == '.') {
                 continue;
             }
 
-            struct stat file_stat;
-            stat((get_log_path() + ep->d_name).c_str(), &file_stat);
+            struct stat file_stat = {};
+            stat((get_log_path() + ep->d_name).c_str(), &file_stat); // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 
             if (file_stat.st_mtim.tv_sec > largest_mtime) {
-                last_filename = ep->d_name;
+                last_filename = ep->d_name; // NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
                 largest_mtime = file_stat.st_mtim.tv_sec;
             }
         }
@@ -67,7 +66,7 @@ std::string get_last_crash_name()
 
 class CrashHelperPopup : public FLAlertLayer {
 protected:
-    bool init()
+    bool init() override
     {
         if (this->initWithColor({ 0, 0, 0, 75 })) {
             constexpr auto width = 360.0f;
@@ -163,7 +162,7 @@ protected:
         return false;
     }
 
-    virtual void keyBackClicked()
+    void keyBackClicked() override
     {
         this->onClose(nullptr);
     };
@@ -254,7 +253,7 @@ protected:
             file_contents << log_file.rdbuf();
 
             // get file size since it's annoying with ifstreams
-            struct stat sb;
+            struct stat sb = {};
             stat(crash_path, &sb);
 
             // create req
@@ -286,7 +285,7 @@ protected:
     }
 
     void onUploadCrashFinished(
-        cocos2d::extension::CCHttpClient* client,
+        cocos2d::extension::CCHttpClient* /* client */,
         cocos2d::extension::CCHttpResponse* response)
     {
         if (this->loadingCircle_ != nullptr) {
@@ -322,16 +321,18 @@ protected:
     }
 
 public:
-    CC_SYNTHESIZE(cocos2d::CCNode*, crashBtn_, CrashBtn);
+    CrashHelperPopup() : crashBtn_(nullptr), loadingCircle_(nullptr), inUpload_(false) {}
+
+    CC_SYNTHESIZE(cocos2d::CCNode *, crashBtn_, CrashBtn);
     CC_SYNTHESIZE(LoadingCircle*, loadingCircle_, LoadingCircle);
     CC_SYNTHESIZE(bool, inUpload_, InUpload);
-    CREATE_FUNC(CrashHelperPopup);
+    CREATE_FUNC(CrashHelperPopup); // NOLINT(modernize-use-auto)
 };
 
 class MenuLayer_H : public MenuLayer {
 private:
-    void googlePlaySignedIn() {};
-    void FLAlert_Clicked(FLAlertLayer*, bool) {};
+    void googlePlaySignedIn() override {};
+    void FLAlert_Clicked(FLAlertLayer*, bool) override {};
 
 public:
     void onCrash(cocos2d::CCObject* btn)
@@ -446,15 +447,12 @@ bool MenuLayer_init(MenuLayer* self)
 }
 
 const char*
-GetLoadingString(LoadingLayer* self)
+GetLoadingString(LoadingLayer* /* self */)
 {
-    time_t t;
-    struct tm* tmp;
+    auto t = time(nullptr);
+    auto tmp = localtime(&t);
 
-    t = time(NULL);
-    tmp = localtime(&t);
-
-    if (tmp == NULL || tmp->tm_wday == 1) {
+    if (tmp == nullptr || tmp->tm_wday == 1) {
         // thank you stev
         return "Save your game often!";
     } else {
@@ -466,8 +464,8 @@ GetLoadingString(LoadingLayer* self)
                 "Tip: Ensure your 3D lines are consistent" }
         };
 
-        int chosen_index = random() % messages.size();
-        return messages[chosen_index];
+        auto chosen_index = random() % messages.size();
+        return messages.at(chosen_index);
     }
 }
 
@@ -489,12 +487,12 @@ void LevelPage_onInfo(LevelPage* self, cocos2d::CCObject* target)
                     "Special thanks to <cl>jamie;</c> for being <cg>the</c>." }
             };
 
-            int chosen_index = random() % messages.size();
+            auto chosen_index = random() % messages.size();
 
-            spdlog::get("global")->info("{} ~ chloe <3", messages[chosen_index]);
+            spdlog::get("global")->info("{} ~ chloe <3", messages.at(chosen_index));
 
             auto alert = FLAlertLayer::create(nullptr, "You found me..!",
-                messages[chosen_index], "<3", nullptr, 350.0);
+                messages.at(chosen_index), "<3", nullptr, 350.0);
             alert->show();
 
             return;
@@ -506,13 +504,13 @@ void LevelPage_onInfo(LevelPage* self, cocos2d::CCObject* target)
 
 class SupportLayerBtnHelper : public cocos2d::CCNode {
 public:
-    void onBypassBtn(cocos2d::CCObject* target)
+    void onBypassBtn(cocos2d::CCObject* /* target */)
     {
         auto gm = GameManager::sharedState();
         gm->toggleGameVariable("3099");
     }
 
-    void onResetAuthKey(cocos2d::CCObject* target)
+    void onResetAuthKey(cocos2d::CCObject* /* target */)
     {
         if (GameToolbox::doWeHaveInternet()) {
             auto trh = Token::TokenResponseHandler::create();
@@ -649,7 +647,7 @@ bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyDown(void* env, int thiz, i
 }
 
 extern "C" {
-    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyUp(void* env, int thiz, int keyCode)
+    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeKeyUp(void* /* env */, int /* thiz */, int keyCode)
     {
         if (keyCode != 0x4 && keyCode != 0x52) {
             auto keyboard_dispatcher = cocos2d::CCDirector::sharedDirector()->getKeyboardDispatcher();
@@ -685,7 +683,7 @@ extern "C" {
         return true;
     }
 
-    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeActionScroll(void* env, int thiz, float scrollX, float scrollY)
+    [[gnu::visibility("default")]] bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeActionScroll(void* /* env */, int /* thiz */, float scrollX, float scrollY)
     {
         spdlog::get("global")->trace("scroll params: {} {}", scrollX, scrollY);
 

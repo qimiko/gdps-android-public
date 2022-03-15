@@ -24,7 +24,7 @@
 namespace {
 
 bool dump_callback(const google_breakpad::MinidumpDescriptor& descriptor,
-    void* context,
+    void* /* context */,
     bool succeeded)
 {
     spdlog::get("global")->info("crash log saved to {}", descriptor.path());
@@ -32,15 +32,15 @@ bool dump_callback(const google_breakpad::MinidumpDescriptor& descriptor,
     return succeeded;
 }
 
-google_breakpad::ExceptionHandler* GLOBAL_EXCEPTION_HANDLER = nullptr;
+auto GLOBAL_EXCEPTION_HANDLER = std::unique_ptr<google_breakpad::ExceptionHandler>(nullptr);
 }
 
 [[gnu::constructor]] void aqua()
 {
 #if GDMOD_ENABLE_SPDLOG
-    auto ringbuffer_size = (Config::USE_LOGGING) ? 1024 : 36;
+    constexpr auto RINGBUFFER_SIZE = 1024;
 
-    auto ring_sink = std::make_shared<spdlog::sinks::ringbuffer_sink_mt>(ringbuffer_size);
+    auto ring_sink = std::make_shared<spdlog::sinks::ringbuffer_sink_mt>(RINGBUFFER_SIZE);
     ring_sink->set_pattern("[%H:%M:%S.%e] [%l] %v");
 
     std::vector<spdlog::sink_ptr> sinks { ring_sink };
@@ -63,14 +63,11 @@ google_breakpad::ExceptionHandler* GLOBAL_EXCEPTION_HANDLER = nullptr;
 
     if constexpr (Config::ENABLE_CRASH_DUMPS) {
         auto log_path = std::string(Config::DATA_PATH) + "logs/";
-        mkdir(log_path.c_str(), 0777);
-
-        auto log_path2 = std::string(Config::DATA_PATH) + "text_logs/";
-        mkdir(log_path2.c_str(), 0777);
+        mkdir(log_path.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
 
         google_breakpad::MinidumpDescriptor descriptor(log_path);
 
-        GLOBAL_EXCEPTION_HANDLER = new google_breakpad::ExceptionHandler(descriptor, nullptr, dump_callback, nullptr, true, -1);
+        GLOBAL_EXCEPTION_HANDLER = std::make_unique<google_breakpad::ExceptionHandler>(descriptor, nullptr, dump_callback, nullptr, true, -1);
     }
 
 #if GDMOD_ENABLE_SPDLOG
@@ -111,8 +108,4 @@ google_breakpad::ExceptionHandler* GLOBAL_EXCEPTION_HANDLER = nullptr;
 #if GDMOD_ENABLE_SPDLOG
     logger->info("hook install finished :)");
 #endif
-}
-
-[[gnu::destructor]] void on_close() {
-    delete GLOBAL_EXCEPTION_HANDLER;
 }
