@@ -98,7 +98,7 @@ void GJAccountManager_onLoginAccountCompleted(GJAccountManager* self,
 
     response_handler->deleteAuthKey();
 
-    HookHandler::orig<&GJAccountManager_onLoginAccountCompleted>(self, resp, err);
+    HookHandler::orig<&GJAccountManager_onLoginAccountCompleted>(self, resp, err); // NOLINT(performance-unnecessary-value-param)
 }
 
 void GameManager_firstLoad(GameManager* self)
@@ -111,7 +111,7 @@ void GameManager_firstLoad(GameManager* self)
 namespace Token {
 
 void TokenResponseHandler::onGetAuthKeyReqFinish(
-    cocos2d::extension::CCHttpClient* client,
+    cocos2d::extension::CCHttpClient* /* client */,
     cocos2d::extension::CCHttpResponse* response)
 {
     auto am = GJAccountManager::sharedState();
@@ -151,7 +151,7 @@ void TokenResponseHandler::onGetAuthKeyReqFinish(
 }
 
 void TokenResponseHandler::onDeleteAuthKeyReqFinish(
-    cocos2d::extension::CCHttpClient* client,
+    cocos2d::extension::CCHttpClient* /* client */,
     cocos2d::extension::CCHttpResponse* response)
 {
     auto am = GJAccountManager::sharedState();
@@ -193,7 +193,7 @@ void TokenResponseHandler::onDeleteAuthKeyReqFinish(
 }
 
 void TokenResponseHandler::onCreateSessionReqFinish(
-    cocos2d::extension::CCHttpClient* client,
+    cocos2d::extension::CCHttpClient* /* client */,
     cocos2d::extension::CCHttpResponse* response)
 {
     auto am = GJAccountManager::sharedState();

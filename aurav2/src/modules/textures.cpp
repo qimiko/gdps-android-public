@@ -52,7 +52,7 @@ void LevelInfoLayer_setupLevelInfo(LevelInfoLayer* self)
 
 class CustomSongWidgetExt : public CustomSongWidget {
 public:
-    void onDeleteSong(cocos2d::CCObject* target)
+    void onDeleteSong(cocos2d::CCObject* /* target */)
     {
         auto menu = get_from_offset<cocos2d::CCMenu*>(this, 0xF4);
         auto download_btn = get_from_offset<CCMenuItemSpriteExtra*>(this, 0x108);
@@ -139,7 +139,7 @@ void GJSongBrowser_customSetup(GJSongBrowser* self)
     return;
 }
 
-cocos2d::CCArray* GJMoreGamesLayer_getMoreGamesList(GJMoreGamesLayer* self)
+cocos2d::CCArray* GJMoreGamesLayer_getMoreGamesList(GJMoreGamesLayer* /* self */)
 {
     auto game_array = cocos2d::CCArray::create();
 

@@ -3,18 +3,18 @@
 namespace {
 class GJSearchObjectExt : public cocos2d::CCNode {
 private:
-    bool super_;
+    bool super_ = false;
 
 public:
     bool getSuper() const { return this->super_; };
     void setSuper(bool n_super) { this->super_ = n_super; }
 
-    CREATE_FUNC(GJSearchObjectExt)
+    CREATE_FUNC(GJSearchObjectExt); // NOLINT(modernize-use-auto)
 };
 
 class MoreSearchLayerExt : public cocos2d::CCLayer {
 public:
-    void onNoReupload(cocos2d::CCObject* target)
+    void onNoReupload(cocos2d::CCObject* /* target */)
     {
         auto glm = GameLevelManager::sharedState();
 
@@ -22,7 +22,7 @@ public:
         glm->setBoolForKey(!no_reupload, "noreupload_filter");
     }
 
-    void onSuper(cocos2d::CCObject* target)
+    void onSuper(cocos2d::CCObject* /* target */)
     {
         auto glm = GameLevelManager::sharedState();
 
@@ -140,7 +140,7 @@ GJSearchObject* LevelSearchLayer_getSearchObject(LevelSearchLayer* self,
     SearchType type,
     std::string query)
 {
-    auto search_object = HookHandler::orig<&LevelSearchLayer_getSearchObject>(self, type, query);
+    auto search_object = HookHandler::orig<&LevelSearchLayer_getSearchObject>(self, type, query); // NOLINT(performance-unnecessary-value-param)
 
     auto ext_object = GJSearchObjectExt::create();
 
@@ -180,7 +180,7 @@ void GameLevelManager_ProcessHttpRequest(GameLevelManager* self,
         self->setUserObject(nullptr);
     }
 
-    HookHandler::orig<&GameLevelManager_ProcessHttpRequest>(self, url, data, key, http_type);
+    HookHandler::orig<&GameLevelManager_ProcessHttpRequest>(self, url, data, key, http_type); // NOLINT(performance-unnecessary-value-param)
 }
 } // namespace
 

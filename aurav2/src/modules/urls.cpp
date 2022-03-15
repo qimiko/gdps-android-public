@@ -13,14 +13,15 @@ const std::vector<uint8_t> string_to_bytes(const char* s)
 {
     // this is a mess but if it works it's fine
     return std::vector<uint8_t>(
-        reinterpret_cast<uint8_t*>(const_cast<char*>(s)),
-        reinterpret_cast<uint8_t*>(const_cast<char*>(s + strlen(s) + 1))); // preserve null byte
+        reinterpret_cast<uint8_t*>(const_cast<char*>(s)), // NOLINT
+         // preserve null byte
+        reinterpret_cast<uint8_t*>(const_cast<char*>(s + strlen(s) + 1))); // NOLINT
 }
 
 template <const int MAX_LEN, std::size_t N>
 const std::vector<uint8_t> validate_string_as_bytes(char const (&s)[N])
 {
-    return string_to_bytes(validate_str_length<MAX_LEN>(s));
+    return string_to_bytes(validate_str_length<MAX_LEN>(s)); // NOLINT
 }
 
 void CCHttpClient_send(cocos2d::extension::CCHttpClient* self, cocos2d::extension::CCHttpRequest* x)
@@ -31,8 +32,8 @@ void CCHttpClient_send(cocos2d::extension::CCHttpClient* self, cocos2d::extensio
 
     constexpr auto HOSTNAME_LENGTH = 18u;
 
-    const std::string url_boomlings = validate_str_length<HOSTNAME_LENGTH>("www.boomlings.com");
-    const std::string url_replacement = validate_str_length<HOSTNAME_LENGTH>("gdps.nettik.co.uk");
+    const std::string url_boomlings = validate_str_length<HOSTNAME_LENGTH>("www.boomlings.com"); // NOLINT
+    const std::string url_replacement = validate_str_length<HOSTNAME_LENGTH>("gdps.nettik.co.uk"); // NOLINT
 
     if (auto host_pos = url.find(url_boomlings); host_pos != std::string::npos) {
         url.replace(host_pos, url_boomlings.length(), url_replacement);

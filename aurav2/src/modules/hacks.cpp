@@ -80,7 +80,7 @@ private:
     }
 
 public:
-    void onBtnDown(cocos2d::CCObject* target)
+    void onBtnDown(cocos2d::CCObject* /* target */)
     {
         auto gm = GameManager::sharedState();
         auto speedhack_interval = gm->getIntGameVariable("5099");
@@ -91,7 +91,7 @@ public:
         this->updateSpeedhackLabel();
     }
 
-    void onBtnUp(cocos2d::CCObject* target)
+    void onBtnUp(cocos2d::CCObject* /* target */)
     {
         auto gm = GameManager::sharedState();
         auto speedhack_interval = gm->getIntGameVariable("5099");
@@ -102,7 +102,7 @@ public:
         this->updateSpeedhackLabel();
     }
 
-    void onPercentage(cocos2d::CCObject* target) {
+    void onPercentage(cocos2d::CCObject* /* target */) {
         auto gm = GameManager::sharedState();
         gm->toggleGameVariable("3098");
 
@@ -526,7 +526,7 @@ bool PlayLayer_init(PlayLayer* self, GJGameLevel* level)
 
 void PlayLayer_setupReplay(PlayLayer* self, std::string replay)
 {
-    HookHandler::orig<&PlayLayer_setupReplay>(self, replay);
+    HookHandler::orig<&PlayLayer_setupReplay>(self, replay); // NOLINT(performance-unnecessary-value-param)
 
     if (self->getPlaybackMode()) {
         auto label = cocos2d::CCLabelBMFont::create("Playback", "bigFont.fnt");
