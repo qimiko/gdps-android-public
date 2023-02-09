@@ -1,0 +1,60 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: RelWithDebInfo
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: nttld/setup-ndk@v1
+      id: setup-ndk
+      with:
+        ndk-version: r17c
+        local-cache: true
+
+    - uses: awalsh128/cache-apt-pkgs-action@v1
+      with:
+        packages: libncurses5 ccache
+        version: 1.0
+
+    - name: Load CPM cache
+      id: cache-cpm
+      uses: actions/cache@v3
+      with:
+        path: ~/cpm-cache
+        key: ${{ runner.os }}-cpm-${{ hashFiles('**/') }}
+        restore-keys: |
+          ${{ runner.os }}-cpm-
+
+    - name: Load ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+
+    - name: Configure CMake
+      run: |
+        cmake -B ${{github.workspace}}/build \
+          -DCPM_SOURCE_CACHE=~/cpm-cache \
+          -DGDMOD_USE_CRASH_DUMPS=OFF \
+          -DGDMOD_CRASH_UPLOAD_URL:STRING="https://api.xyze.dev/gd/crash?hash=%s-%s" \
+          -DGDMOD_USE_IMGUI=ON \
+          -DGDMOD_USE_SPDLOG=ON \
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} \
+          -DCMAKE_TOOLCHAIN_FILE=${{steps.setup-ndk.outputs.ndk-path}}/build/cmake/android.toolchain.cmake \
+          -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: libaurav2.so
+        path: ${{github.workspace}}/build/libaurav2.so

@@ -1,0 +1,2 @@
+build/**
+include/base/cmake_config.hpp

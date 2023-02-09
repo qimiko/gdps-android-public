@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">1.9 GDPS</string>
+    <string name="title_activity_geometry_dash">GeometryDash</string>
+    <string name="preference_key">com.kyurime.GeometryJump.PREFERENCE_FILE_KEY</string>
+    <string name="is_loading_key">IS_LOADING</string>
+</resources>
