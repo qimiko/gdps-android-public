@@ -30,10 +30,10 @@ void ToggleSettingsPage::addToggle(const char* name, bool default_on, cocos2d::S
 
     auto pos = cocos2d::CCPoint(20.0f, this->getNextToggleY());
 
-    auto toggle = GameToolbox::createToggleButton(name, callback, default_on, this->_internal_menu, pos, this, obj_layer, 0.8, 0.5, 180.0f, cocos2d::CCPoint(8.0f, 0.0f), "bigFont.fnt", false);
+    auto toggle = GameToolbox::createToggleButton(name, callback, default_on, this->_internal_menu, pos, this, obj_layer, 0.8, 0.5, 205.0f, cocos2d::CCPoint(8.0f, 0.0f), "bigFont.fnt", false);
 
     // the toggle is placed very strangely relative to objects, thanks rob?
-    toggle->setPosition(-(_window_dimensions.width / 2) + 35.0f, this->getNextToggleMenuY());
+    toggle->setPosition(-(_window_dimensions.width / 2) + 32.0f, this->getNextToggleMenuY());
     this->_menu_objects.push_back(toggle);
     current_page.push_back(toggle);
     this->_toggle_count++;
@@ -71,12 +71,16 @@ void ToggleSettingsPage::addToggle(const char* name, bool default_on, cocos2d::S
     }
 }
 
+void ToggleSettingsPage::addSpacer(int inc) {
+    this->_toggle_count += inc;
+}
+
 float ToggleSettingsPage::getNextToggleY() {
-    return _dimensions.height - (this->_toggle_count * 40.0f) - 45.0f;
+    return _dimensions.height - (this->_toggle_count * TOGGLE_SPACING) - 54.0f;
 }
 
 float ToggleSettingsPage::getNextToggleMenuY() {
-    return (_window_dimensions.height / 2) - (static_cast<float>(this->_toggle_count + 1) * 40.0f) - 23.0f;
+    return (_window_dimensions.height / 2) - (static_cast<float>(this->_toggle_count + 1) * TOGGLE_SPACING) - 23.0f;
 }
 
 void ToggleSettingsPage::onPageNext(cocos2d::CCObject*) {

@@ -10,12 +10,12 @@ void LevelCell_loadCustomLevelCell(LevelCell* self)
     HookHandler::orig<&LevelCell_loadCustomLevelCell>(self);
 
     auto level = get_from_offset<GJGameLevel*>(self, 0x15C);
-    spdlog::get("global")->trace("load custom level cell %i", level->getLevelID());
+    spdlog::trace("load custom level cell {}", level->getLevelID());
 
     auto featured = level->getFeatured();
 
     if (featured == SUPER_VALUE) {
-        spdlog::get("global")->trace("supered level %s", level->getLevelName().c_str());
+        spdlog::trace("supered level {}", level->getLevelName().c_str());
         auto menu = get_from_offset<cocos2d::CCMenu*>(self, 0x158);
 
         auto featured_coin = reinterpret_cast<cocos2d::CCSprite*>(
@@ -323,7 +323,7 @@ bool ShareLevelLayer_init(ShareLevelLayer* self, GJGameLevel* lvl) {
 
             // easter egg
             if (distribution(rng) == 1) {
-                textbox->setString("By sharing a level you give the rights to use the level (in any way) and your first born child to the one true goddess, zmx.");
+                textbox->setString("By sharing a level you give the rights to use the level (in any way) and your first born child to the one true deity, zmx.");
             } else {
                 textbox->setString("By sharing a level you give the rights to use the level (in any way) to the creators of the 1.9 GDPS.");
             }

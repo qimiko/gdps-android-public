@@ -10,6 +10,19 @@ void GraphicsSettingsPage::createPage() {
     title->setPosition(width / 2, height - 10.0f);
     title->setScale(0.75f);
 
+    this->addToggle(
+            "Limit Aspect Ratio\n(req. restart)",
+            JNI::is_screen_restricted(),
+            static_cast<cocos2d::SEL_MenuHandler>(&GraphicsSettingsPage::onLimitAspectRatio),
+            "Limits the game window to a maximum aspect ratio of 16:9.");
+
+    auto descLabel = cocos2d::CCLabelBMFont::create("Quality:", "goldFont.fnt");
+    this->addChild(descLabel);
+
+    descLabel->setScale(0.75f);
+    descLabel->setPosition(7.0f, (height / 2) + 10.0f);
+    descLabel->setAnchorPoint({ 0.0f, 0.5f });
+
     auto ccd = cocos2d::CCDirector::sharedDirector();
     this->_selected_quality = ccd->getLoadedTextureQuality();
     if (static_cast<int>(this->_selected_quality) > 3) {
@@ -22,11 +35,11 @@ void GraphicsSettingsPage::createPage() {
 
     this->_internal_menu->addChild(this->_apply_button);
     this->_menu_objects.push_back(this->_apply_button);
-    _apply_button->setPosition((-_window_dimensions.width / 2) + (width / 2) + 85.0f, -(_window_dimensions.height / 2) + 35.0f);
+    _apply_button->setPosition((-_window_dimensions.width / 2) + (width / 2) + 87.0f, -(_window_dimensions.height / 2) + 35.0f);
 
     this->_quality_label = cocos2d::CCLabelBMFont::create(labelForQuality(this->_selected_quality), "bigFont.fnt");
     this->addChild(this->_quality_label);
-    this->_quality_label->setPosition(width / 2, (height / 2) + 7.0f);
+    this->_quality_label->setPosition(width / 2, (height / 2) - 38.0f);
     this->_quality_label->setScale(1.0f);
 
     auto sprite_center = cocos2d::CCPoint((-_window_dimensions.width / 2) + (width / 2), 0.0f);
@@ -37,7 +50,7 @@ void GraphicsSettingsPage::createPage() {
     this->_internal_menu->addChild(next_btn);
     this->_menu_objects.push_back(next_btn);
 
-    next_btn->setPosition(sprite_center.x + 85.0f + 13.0f, sprite_center.y + 5.0f);
+    next_btn->setPosition(sprite_center.x + 85.0f + 13.0f, sprite_center.y - 39.0f);
 
     auto prev_sprite = cocos2d::CCSprite::createWithSpriteFrameName("edit_leftBtn_001.png");
     prev_sprite->setScale(2.0f);
@@ -45,14 +58,18 @@ void GraphicsSettingsPage::createPage() {
     this->_internal_menu->addChild(prev_btn);
     this->_menu_objects.push_back(prev_btn);
 
-    prev_btn->setPosition(sprite_center.x - 85.0f + 13.0f, sprite_center.y + 5.0f);
+    prev_btn->setPosition(sprite_center.x - 85.0f + 13.0f, sprite_center.y - 39.0f);
 
     auto textures_sprite = ButtonSprite::create("Textures", 380, 0, 1.0f, false);
     auto textures_btn = CCMenuItemSpriteExtra::create(textures_sprite, nullptr, this, static_cast<cocos2d::SEL_MenuHandler>(&GraphicsSettingsPage::onTextures));
     this->_internal_menu->addChild(textures_btn);
     this->_menu_objects.push_back(textures_btn);
 
-    textures_btn->setPosition((-_window_dimensions.width / 2) + (width / 2) - 35.0f, -(_window_dimensions.height / 2) + 35.0f);
+    textures_btn->setPosition((-_window_dimensions.width / 2) + (width / 2) - 37.0f, -(_window_dimensions.height / 2) + 35.0f);
+}
+
+void GraphicsSettingsPage::onLimitAspectRatio(cocos2d::CCObject*) {
+    JNI::toggle_is_screen_restricted();
 }
 
 void GraphicsSettingsPage::onPrev(cocos2d::CCObject*)

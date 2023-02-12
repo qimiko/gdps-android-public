@@ -17,8 +17,10 @@ protected:
     bool _has_page_counter = false;
 
     static constexpr int MAX_TOGGLE_PER_PAGE = 5;
+    static constexpr float TOGGLE_SPACING = 45.0f;
 
     void addToggle(const char* name, bool default_on, cocos2d::SEL_MenuHandler callback = nullptr, const char* desc = nullptr);
+    void addSpacer(int inc = 1);
 
     float getNextToggleY();
     float getNextToggleMenuY();

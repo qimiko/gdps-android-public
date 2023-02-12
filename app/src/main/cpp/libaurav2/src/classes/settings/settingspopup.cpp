@@ -3,8 +3,8 @@
 bool SettingsPopup::init(int page)
 {
     if (this->initWithColor({ 0, 0, 0, 75 })) {
-        constexpr auto width = 380.0f;
-        constexpr auto height = 250.0f;
+        constexpr auto width = 400.0f;
+        constexpr auto height = 280.0f;
 
         auto ccd = cocos2d::CCDirector::sharedDirector();
         ccd->getTouchDispatcher()->incrementForcePrio();
@@ -68,16 +68,16 @@ bool SettingsPopup::init(int page)
             auto toggle = CCMenuItemToggler::create(toggle_sprite, toggle_on_sprite, this, static_cast<cocos2d::SEL_MenuHandler>(&SettingsPopup::onToggleLayer));
 
             this->internalMenu_->addChild(toggle);
-            toggle->setPosition((width / 2) - 60.0f, (height / 2) - 32.0f - (i * 31.0f));
+            toggle->setPosition((width / 2) - 60.0f, (height / 2) - 32.0f - (i * 36.0f));
             toggle->setTag(i);
 
-            item.page->setDimensions(cocos2d::CCSize(width - 135.0f, height - 35.0f));
+            item.page->setDimensions(cocos2d::CCSize(width - 130.0f, height - 30.0f));
             item.page->setWindowDimensions(cocos2d::CCSize(width, height));
             item.page->setInternalMenu(this->internalMenu_);
             item.page->createPage();
 
             this->internalLayer_->addChild(item.page, 2);
-            item.page->setPosition(cocos2d::CCPoint(((window_size.width - width) / 2.0f) + 13.0f, 52.0f));
+            item.page->setPosition({ ((window_size.width - width) / 2.0f) + 13.0f, ((window_size.height - height) / 2.0f) + 17.0f });
             item.page->setVisible(false);
 
             this->buttons_->addObject(toggle);

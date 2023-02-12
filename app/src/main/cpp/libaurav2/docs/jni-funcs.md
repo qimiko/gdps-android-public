@@ -54,6 +54,12 @@ If launcher mode is enabled, returns the path to a secondary assets directory th
 `Lcom/kyurime/geometryjump/ModGlue;->isLauncherBuild()Z`  
 Returns true if launcher mode is enabled. This enables extra asset redirections in the mod code.
 
+`Lcom/kyurime/geometryjump/ModGlue;->isScreenRestricted()Z`  
+Returns true if aspect ratio restriction is enabled in the app preferences.
+
+`Lcom/kyurime/geometryjump/ModGlue;->toggleIsScreenRestricted()V`  
+Toggles the aspect ratio restriction option in the app preferences.
+
 ## Native Methods
 
 These methods are defined by the mod code for use by the Android layer. Their definitions can be found in ["classes/callbacks/"](/src/classes/callbacks/).

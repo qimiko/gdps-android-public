@@ -219,7 +219,7 @@ void PlayLayer_levelComplete(PlayLayer* self)
 
 bool PlayLayer_init(PlayLayer* self, GJGameLevel* level)
 {
-    spdlog::get("global")->info("PlayLayer::init called");
+    spdlog::info("PlayLayer::init{hacks} called");
 
     auto return_value = HookHandler::orig<&PlayLayer_init>(self, level);
 

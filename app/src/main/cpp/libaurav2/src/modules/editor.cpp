@@ -6,7 +6,7 @@ namespace {
 
 // persistent clipboard
     void EditorUI_destructor(EditorUI *self) {
-        spdlog::get("global")->info("EditorUI::~EditorUI called");
+        spdlog::info("EditorUI::~EditorUI called");
 
         auto string_ptr = get_from_offset<std::string>(self, 0x264);
 
@@ -28,8 +28,6 @@ namespace {
 
         auto copy_string = ptr_to_offset<std::string>(manager, 0x114);
 
-        spdlog::get("global")->trace("copy string: `%s`", copy_string->c_str());
-
         if (!copy_string->empty()) {
             auto string_ptr = ptr_to_offset<std::string>(self, 0x264);
 
@@ -38,7 +36,7 @@ namespace {
                     reinterpret_cast<uintptr_t>(GLOBAL_BASE) + 0x416E94);
             string_assign(*string_ptr, *copy_string);
 
-            spdlog::get("global")->trace("copy setting from `%s`", string_ptr->c_str());
+            spdlog::trace("copy setting from `{}`", string_ptr->c_str());
 
             self->updateButtons();
 

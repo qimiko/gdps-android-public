@@ -9,13 +9,14 @@ bool IS_ACTIVE = false;
 bool LOGGER_TRANSLUCENT = false;
 float LOGGER_ALPHA = 0.9f;
 bool LOGGER_AUTOSCROLL = true;
-bool LOGGER_SHOW_DEBUG = false;
+bool LOGGER_SHOW_DEBUG = true;
 
 bool SCENE_TRANSLUCENT = false;
 float SCENE_ALPHA = 0.9f;
 
 bool SHOW_DEBUG_OPTIONS = false;
 bool SHOW_LOGGER = false;
+bool SHOW_LOG_OVERLAY = true;
 bool SHOW_DEMO = false;
 bool SHOW_VARS = false;
 bool SHOW_EXPLORER = false;
@@ -272,21 +273,39 @@ void imgui_draw_cocos_window()
     ImGui::End();
 }
 
-ImVec4 get_log_color(spdlog::level::level_enum level) {
+ImVec4 get_log_color(spdlog::level::level_enum level, bool useDark = false) {
     switch (level) {
         case spdlog::level::trace:
         case spdlog::level::debug:
-            return { 0.400f, 0.400f, 0.400f, 1.0f };
+            return useDark ? ImVec4(0.8f, 0.8f, 0.8f, 1.0f) : ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
         case spdlog::level::info:
-            return { 0.0f, 0.0f, 0.0f, 1.0f };
+            return useDark ? ImVec4(1.0f, 1.0f, 1.0f, 1.0f) : ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
         case spdlog::level::warn:
-            // 193, 131, 1, 255
-            return { 0.757f, 0.514f, 0.004f, 1.0f };
+            // 255, 221, 87 or 193, 131, 1, 255
+            return useDark ? ImVec4(1.0f, 0.867f, 0.341f, 1.0f) : ImVec4(0.757f, 0.514f, 0.004f, 1.0f);
         case spdlog::level::err:
-            // 228, 86, 73, 255
-            return { 0.894f, 0.337f, 0.286f, 1.0f };
+            // 255, 52, 33 or 228, 86, 73, 255
+            return useDark ? ImVec4(1.0f, 0.204f, 0.129f, 1.0f) : ImVec4(0.894f, 0.337f, 0.286f, 1.0f);
         default:
             return { 0.0f, 0.0f, 0.0f, 1.0f };
+    }
+}
+
+void imgui_draw_logs(bool useDark = false) {
+    auto ring_buffer = std::static_pointer_cast<spdlog::sinks::ringbuffer_sink_mt>(spdlog::get("global")->sinks().front());
+    for (const auto& line : ring_buffer->last_raw()) {
+        if (!LOGGER_SHOW_DEBUG && (line.level == spdlog::level::debug || line.level == spdlog::level::trace)) {
+            continue;
+        }
+
+        ImGui::PushStyleColor(ImGuiCol_Text, get_log_color(line.level, useDark));
+
+        auto log_details = fmt::format(
+                "[{:%H:%M:%S}] [{}] {}",
+                line.time, to_short_c_str(line.level), line.payload);
+        ImGui::TextWrapped("%s", log_details.c_str());
+
+        ImGui::PopStyleColor();
     }
 }
 
@@ -339,26 +358,7 @@ void imgui_draw_log_window()
 
         ImGui::BeginChild("scrolling", ImVec2(0, 0), false, 0);
 
-        auto ring_buffer = std::static_pointer_cast<spdlog::sinks::ringbuffer_sink_mt>(spdlog::get("global")->sinks().front());
-        for (const auto& line : ring_buffer->last_raw()) {
-            if (!LOGGER_SHOW_DEBUG && (line.level == spdlog::level::debug || line.level == spdlog::level::trace)) {
-                continue;
-            }
-
-            bool show_custom_color = line.level != spdlog::level::info;
-            if (show_custom_color) {
-                ImGui::PushStyleColor(ImGuiCol_Text, get_log_color(line.level));
-            }
-
-            auto log_details = fmt::format(
-                    "[{:%H:%M:%S}] [{}] {}",
-                    line.time, to_short_c_str(line.level), line.payload);
-            ImGui::TextWrapped("%s", log_details.c_str());
-
-            if (show_custom_color) {
-                ImGui::PopStyleColor();
-            }
-        }
+        imgui_draw_logs();
 
         if (LOGGER_AUTOSCROLL && (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())) {
             ImGui::SetScrollHereY(1.0f);
@@ -481,6 +481,39 @@ void imgui_draw_overlay_options()
     ImGui::End();
 }
 
+void imgui_draw_log_overlay() {
+    ImGuiIO& io = ImGui::GetIO();
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration
+            | ImGuiWindowFlags_NoResize
+            | ImGuiWindowFlags_NoSavedSettings
+            | ImGuiWindowFlags_NoFocusOnAppearing
+            | ImGuiWindowFlags_NoNav
+            | ImGuiWindowFlags_NoMove
+            | ImGuiWindowFlags_NoInputs
+            | ImGuiWindowFlags_NoBackground;
+
+    auto dpi = static_cast<float>(cocos2d::CCDevice::getDPI());
+    auto eglview = cocos2d::CCEGLView::sharedOpenGLView();
+    auto pixel_size = eglview->getFrameSize();
+
+    auto window_pos = ImVec2(10.0f, 10.0f);
+    auto window_size = ImVec2(pixel_size.width, (dpi / DPI_NORMAL_FACTOR) * 600.0f);
+
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(window_size, ImGuiCond_Always);
+
+    if (ImGui::Begin("Log Overlay", nullptr, window_flags))
+    {
+        imgui_draw_logs(true);
+
+        if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
+            ImGui::SetScrollHereY(1.0f);
+        }
+
+    }
+    ImGui::End();
+}
+
 void imgui_start_frame()
 {
     if (!IS_ACTIVE) {
@@ -525,6 +558,10 @@ void imgui_tick(void* tex = nullptr)
 
     if (SHOW_LOGGER) {
         imgui_draw_log_window();
+    }
+
+    if (SHOW_LOG_OVERLAY) {
+        imgui_draw_log_overlay();
     }
 
     if (SHOW_DEMO) {
@@ -580,6 +617,8 @@ void imgui_tick(void* tex = nullptr)
             ImGui::Text("FPS: %.1f", CURRENT_FPS);
 
             ImGui::MenuItem("More", nullptr, &SHOW_DEBUG_OPTIONS);
+            ImGui::MenuItem("Logs", nullptr, &SHOW_LOG_OVERLAY);
+
             ImGui::EndMenuBar();
         }
     }

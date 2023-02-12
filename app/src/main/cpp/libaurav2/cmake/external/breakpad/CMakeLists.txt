@@ -7,7 +7,7 @@ enable_language(ASM)
 include(../../CPM.cmake)
 CPMAddPackage(
 	NAME breakpad
-	VERSION 2021.08.09
+	VERSION 2022.07.12
 	GIT_REPOSITORY https://chromium.googlesource.com/breakpad/breakpad.git
 )
 
@@ -16,7 +16,7 @@ if (breakpad_ADDED)
 
 	FetchContent_Declare(lss
 			GIT_REPOSITORY https://chromium.googlesource.com/linux-syscall-support.git
-			GIT_TAG e1e7b0ad8ee99a875b272c8e33e308472e897660
+			GIT_TAG v2022.10.12
 			SOURCE_DIR ${breakpad_SOURCE_DIR}/src/third_party/lss
 	)
 
@@ -33,6 +33,7 @@ if (breakpad_ADDED)
 		${breakpad_SOURCE_DIR}/src/client/linux/minidump_writer/linux_dumper.cc
 		${breakpad_SOURCE_DIR}/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
 		${breakpad_SOURCE_DIR}/src/client/linux/minidump_writer/minidump_writer.cc
+		${breakpad_SOURCE_DIR}/src/client/linux/minidump_writer/pe_file.cc
 		${breakpad_SOURCE_DIR}/src/client/minidump_file_writer.cc
 		${breakpad_SOURCE_DIR}/src/common/convert_UTF.cc
 		${breakpad_SOURCE_DIR}/src/common/md5.cc

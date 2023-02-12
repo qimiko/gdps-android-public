@@ -31,7 +31,12 @@ std::string CrashHelperPopup::getLastCrashName() {
         closedir(directory);
     }
 
-    spdlog::get("global")->info("last crash file: {}", last_filename);
+    if (!last_filename.empty()) {
+        spdlog::warn("crash file found: {}", last_filename);
+    } else {
+        spdlog::info("no crash file found");
+
+    }
 
     return last_filename;
 }
@@ -80,7 +85,7 @@ bool CrashHelperPopup::init() {
                 reinterpret_cast<cocos2d::SEL_MenuHandler>(&CrashHelperPopup::onDelete));
 
         this->internalMenu_->addChild(delete_btn);
-        delete_btn->setPosition(-45.0f, -(height / 2));
+        delete_btn->setPosition(-60.0f, -(height / 2));
 
         auto upload_sprite = cocos2d::CCSprite::createWithSpriteFrameName("GJ_shareBtn_001.png");
         upload_sprite->setScale(0.60f);
@@ -95,9 +100,11 @@ bool CrashHelperPopup::init() {
         }
 
         this->internalMenu_->addChild(upload_btn);
-        upload_btn->setPosition(45.0f, -(height / 2));
+        upload_btn->setPosition(0.0f, -(height / 2));
 
         auto export_sprite = cocos2d::CCSprite::createWithSpriteFrameName("GJ_downloadBtn_001.png");
+        export_sprite->setScale(1.25f);
+
         auto export_btn = CCMenuItemSpriteExtra::create(
                 export_sprite,
                 nullptr,
@@ -105,7 +112,7 @@ bool CrashHelperPopup::init() {
                 reinterpret_cast<cocos2d::SEL_MenuHandler>(&CrashHelperPopup::onExport));
 
         this->internalMenu_->addChild(export_btn);
-        export_btn->setPosition(width / 2, -(height / 2));
+        export_btn->setPosition(60.0f, -(height / 2));
 
         auto title = cocos2d::CCLabelBMFont::create("Crash Reporter", "bigFont.fnt");
         this->internalLayer_->addChild(title);
@@ -120,7 +127,7 @@ bool CrashHelperPopup::init() {
         frown_face->setRotation(90.0f);
         frown_face->setScale(1.5f);
 
-        auto info_text = cocos2d::CCLabelBMFont::create("Geometry Dash has crashed on a previous run.\nWould you like to delete or report the crash log?", "chatFont.fnt");
+        auto info_text = cocos2d::CCLabelBMFont::create("Geometry Dash has crashed on a previous run.\nWould you like to delete, upload or export a crash log?", "chatFont.fnt");
         this->internalLayer_->addChild(info_text);
 
         info_text->setScale(0.95f);

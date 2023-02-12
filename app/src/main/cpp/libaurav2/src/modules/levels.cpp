@@ -3,7 +3,7 @@
 namespace {
 std::string GetAudioTitle(int audio_id)
 {
-    spdlog::get("global")->trace("running getaudiotitle for id %i", audio_id);
+    spdlog::trace("running getaudiotitle for id {}", audio_id);
 
     switch (audio_id) {
     case 18:
@@ -21,7 +21,7 @@ std::string GetAudioTitle(int audio_id)
 
 int LevelTools_artistForAudio(int audio_id)
 {
-    spdlog::get("global")->trace("running artistforaudio for id {}", audio_id);
+    spdlog::trace("running artistforaudio for id {}", audio_id);
 
     /* 0 - DJVI
      * 1 - Waterflame
@@ -49,7 +49,7 @@ int LevelTools_artistForAudio(int audio_id)
 
 std::string LevelTools_urlForAudio(int audio_id)
 {
-    spdlog::get("global")->trace("running urlforaudio for id %i", audio_id);
+    spdlog::trace("running urlforaudio for id {}", audio_id);
 
     switch (audio_id) {
     case 18:
@@ -67,7 +67,7 @@ std::string LevelTools_urlForAudio(int audio_id)
 
 std::string LevelTools_nameForArtist(int artist_id)
 {
-    spdlog::get("global")->trace("running nameforartist for id %i", artist_id);
+    spdlog::trace("running nameforartist for id {}", artist_id);
 
     switch (artist_id) {
     case 6:
@@ -81,7 +81,7 @@ std::string LevelTools_nameForArtist(int artist_id)
 
 std::string LevelTools_ngURLForArtist(int artist_id)
 {
-    spdlog::get("global")->trace("running ngurlforartist for id %i", artist_id);
+    spdlog::trace("running ngurlforartist for id {}", artist_id);
 
     switch (artist_id) {
     case 6:
@@ -95,7 +95,7 @@ std::string LevelTools_ngURLForArtist(int artist_id)
 
 std::string LevelTools_ytURLForArtist(int artist_id)
 {
-    spdlog::get("global")->trace("running ngurlforartist for id %i", artist_id);
+    spdlog::trace("running ngurlforartist for id {}", artist_id);
 
     switch (artist_id) {
     case 6:
@@ -109,7 +109,7 @@ std::string LevelTools_ytURLForArtist(int artist_id)
 
 std::string GetAudioFileName(int audio_id)
 {
-    spdlog::get("global")->trace("running getaudiofilename for id %i", audio_id);
+    spdlog::trace("running getaudiofilename for id {}", audio_id);
 
     switch (audio_id) {
     case 18:
@@ -127,7 +127,7 @@ std::string GetAudioFileName(int audio_id)
 
 GJGameLevel* GetLevel(int level_id, bool p1)
 {
-    spdlog::get("global")->trace("running getlevel for level id %i, p1 is %i (lvl %s)",
+    spdlog::trace("running getlevel for level id {}, p1 is {} (lvl {})",
             level_id, p1,
             LevelTools::getAudioTitle(level_id - 1).c_str());
 
@@ -234,7 +234,7 @@ void MenuLayer_onPlay(MenuLayer* self, cocos2d::CCObject* target)
 
     auto glm = GameLevelManager::sharedState();
 
-    spdlog::get("global")->info("running level coins migration (oops)");
+    spdlog::trace("running level coins migration (oops)");
     for (auto i = 19u; i <= 22; ++i) {
         // so i accidentally introduced a bug
         // this bug breaks save data, oops

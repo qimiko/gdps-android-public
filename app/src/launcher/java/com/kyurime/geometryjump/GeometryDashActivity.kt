@@ -1,5 +1,6 @@
 package com.kyurime.geometryjump
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -9,6 +10,7 @@ import android.os.Bundle
 const val ORIGINAL_PACKAGE_NAME = "com.kyurime.geometryjump"
 
 class GeometryDashActivity : BaseGeometryDashActivity() {
+    @SuppressLint("UnsafeDynamicallyLoadedCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         if (!isPackageInstalled(ORIGINAL_PACKAGE_NAME)) {
             val launchIntent = Intent(this, LoadErrorActivity::class.java)
@@ -26,17 +28,6 @@ class GeometryDashActivity : BaseGeometryDashActivity() {
         } catch (e: NoSuchMethodException) {
             e.printStackTrace()
         }
-
-        /*
-        try {
-            // fixes bugs specific to the new app directory, such as package name
-            LauncherFix.loadLibrary()
-            LauncherFix.setOriginalDataPath(Constants.GJ_DATA_DIR)
-            LauncherFix.setDataPath(filesDir.path)
-        } catch (e: UnsatisfiedLinkError) {
-            e.printStackTrace()
-        }
-        */
 
         System.load("$gdNativeLibraryPath/lib${GJConstants.FMOD_LIB_NAME}.so")
         System.load("$gdNativeLibraryPath/lib${GJConstants.COCOS_LIB_NAME}.so")
@@ -56,6 +47,7 @@ class GeometryDashActivity : BaseGeometryDashActivity() {
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     fun addAssetsFromPackage(assetManager: AssetManager, packageInfo: PackageInfo) {
         // this method is officially marked as deprecated but it is the only method we are allowed to reflect
         // (the source recommends replacing with AssetManager.setApkAssets(ApkAssets[], boolean) lol)

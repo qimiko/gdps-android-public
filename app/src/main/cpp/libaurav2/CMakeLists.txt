@@ -96,7 +96,7 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage(
   NAME rapidjson
-  GIT_TAG 8261c1ddf43f10de00fd8c9a67811d1486b2c784
+  GIT_TAG 012be8528783cdbf4b7a9e64f78bd8f056b97e24
   GITHUB_REPOSITORY Tencent/rapidjson
   DOWNLOAD_ONLY YES
 )
@@ -113,7 +113,7 @@ target_link_libraries(aurav2 fmt)
 add_compile_definitions(typeof=__typeof__)
 CPMAddPackage(
   NAME dobby
-  GIT_TAG 6a80a61ea062424d1595613058a174c64454fa57
+  GIT_TAG 16b99a55dc219114832c33f3258f48ca2958ed70
   GITHUB_REPOSITORY jmpews/Dobby
   OPTIONS "DOBBY_DEBUG OFF" "DOBBY_GENERATE_SHARED OFF"
 )

@@ -2,6 +2,7 @@ package org.cocos2dx.lib
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.os.Build
 import android.os.Process
 import com.customRobTop.BaseRobTopActivity
 
@@ -37,7 +38,11 @@ object Cocos2dxHelper {
 
     @JvmStatic
     fun getDPI(): Int {
-        return BaseRobTopActivity.me.get()?.resources?.configuration?.densityDpi ?: -1
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            BaseRobTopActivity.me.get()?.resources?.configuration?.densityDpi ?: -1
+        } else {
+            BaseRobTopActivity.me.get()?.resources?.displayMetrics?.densityDpi ?: -1
+        }
     }
 
     fun init(context: Context, cocos2dxHelperListener: Cocos2dxHelperListener) {

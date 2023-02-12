@@ -42,7 +42,7 @@ void SongsSettingsPage::createPage() {
     this->_internal_menu->addChild(song_browser_button);
     this->_menu_objects.push_back(song_browser_button);
 
-    song_browser_button->setPosition(-((_window_dimensions.width / 2) - 5), -(_window_dimensions.height / 2) + 5);
+    song_browser_button->setPosition(-((_window_dimensions.width / 2) - 20.0f), -(_window_dimensions.height / 2) + 20.0f);
 
     auto offset_input = CCTextInputNode::create(100.0f, 50.0f, "Offset", "Thonburi", 24, "bigFont.fnt");
     this->addChild(offset_input, 4);
@@ -53,12 +53,12 @@ void SongsSettingsPage::createPage() {
     offset_input->setMaxLabelScale(0.6f);
     offset_input->setLabelPlaceholderScale(0.6f);
     offset_input->setLabelPlaceholderColor({120, 170, 240 });
-    offset_input->setPosition(width - 50.0f, 8.0f);
+    offset_input->setPosition(width - 60.0f, 9.0f);
     this->offset_input_ = offset_input;
 
     auto offset_label = cocos2d::CCLabelBMFont::create("Music Offset (ms)", "bigFont.fnt");
     this->addChild(offset_label);
-    offset_label->setPosition(width - 50.0f, 31.0f);
+    offset_label->setPosition(width - 60.0f, 32.0f);
     offset_label->setScale(0.35f);
 
     auto fmod_engine = FMODAudioEngine::sharedEngine();
@@ -70,7 +70,7 @@ void SongsSettingsPage::createPage() {
             "square02_small.png", cocos2d::CCRect(0.0f, 0.0f, 40.0f, 40.0f));
     label_bg->setContentSize({ 100.0f, 30.0f });
     label_bg->setOpacity(100);
-    label_bg->setPosition(width - 50.0f, 8.0f);
+    label_bg->setPosition(width - 60.0f, 9.0f);
     this->addChild(label_bg);
 }
 

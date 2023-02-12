@@ -9,8 +9,4 @@ class GeometryDashActivity : BaseGeometryDashActivity() {
         System.loadLibrary(GJConstants.COCOS_LIB_NAME)
         System.loadLibrary(GJConstants.MOD_CORE_LIB_NAME)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 }

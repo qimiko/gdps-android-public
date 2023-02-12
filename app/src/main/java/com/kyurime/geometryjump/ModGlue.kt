@@ -22,7 +22,7 @@ object ModGlue {
     const val REQUEST_CODE_EXPORT_LEVEL = 3
     const val REQUEST_CODE_IMPORT_LEVEL = 4
 
-    const val DEFAULT_TEXTURE_DIRECTORY = "/data/data/${BuildConfig.APPLICATION_ID}/textures/"
+    private const val DEFAULT_TEXTURE_DIRECTORY = "/data/data/${BuildConfig.APPLICATION_ID}/textures/"
 
     @JvmStatic
     external fun onTextureDirectoryChosen()
@@ -38,6 +38,10 @@ object ModGlue {
 
     @JvmStatic
     fun isControllerConnected(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            return false
+        }
+
         BaseRobTopActivity.me.get()?.apply {
             val inputManager = getSystemService(Context.INPUT_SERVICE) as InputManager
 
@@ -61,6 +65,16 @@ object ModGlue {
 
     @JvmStatic
     fun exportCrashDump(path: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            Toast.makeText(
+                BaseRobTopActivity.me.get(),
+                "This feature is not supported on your device.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
         val dumpFile = File(path)
 
         val exportIntent: Intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
@@ -81,6 +95,16 @@ object ModGlue {
 
     @JvmStatic
     fun showTexturePicker() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Toast.makeText(
+                BaseRobTopActivity.me.get(),
+                "This feature is not supported on your device.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
         val exportIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         BaseRobTopActivity.me.get()?.startActivityForResult(exportIntent, REQUEST_CODE_LOAD_TEXTURE)
     }
@@ -102,6 +126,16 @@ object ModGlue {
 
     @JvmStatic
     fun onExportLevel(levelName: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            Toast.makeText(
+                BaseRobTopActivity.me.get(),
+                "This feature is not supported on your device.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "application/prs.gmd+xml"
@@ -112,6 +146,16 @@ object ModGlue {
 
     @JvmStatic
     fun showLevelPicker() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            Toast.makeText(
+                BaseRobTopActivity.me.get(),
+                "This feature is not supported on your device.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
         try {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
@@ -175,6 +219,31 @@ object ModGlue {
 
         with (sharedPref.edit()) {
             putBoolean(activity.getString(R.string.is_loading_key), false)
+            apply()
+        }
+    }
+
+    @JvmStatic
+    fun isScreenRestricted(): Boolean {
+        val activity = BaseRobTopActivity.me.get() ?: return false
+
+        val sharedPref = activity.getSharedPreferences(
+            activity.getString(R.string.preference_key), Context.MODE_PRIVATE)
+
+        return sharedPref.getBoolean(activity.getString(R.string.is_layout_restricted_key), false)
+    }
+
+    @JvmStatic
+    fun toggleIsScreenRestricted() {
+        val activity = BaseRobTopActivity.me.get() ?: return
+
+        val sharedPref = activity.getSharedPreferences(
+            activity.getString(R.string.preference_key), Context.MODE_PRIVATE)
+
+        val currentOption = isScreenRestricted()
+
+        with (sharedPref.edit()) {
+            putBoolean(activity.getString(R.string.is_layout_restricted_key), !currentOption)
             apply()
         }
     }

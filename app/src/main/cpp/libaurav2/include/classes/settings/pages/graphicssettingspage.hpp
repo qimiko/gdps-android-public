@@ -7,10 +7,10 @@
 
 #include "base/game_variables.hpp"
 
-#include "classes/settings/settingspage.hpp"
+#include "classes/settings/togglesettingspage.hpp"
 #include "classes/settings/texturesettingspopup.hpp"
 
-class GraphicsSettingsPage : public SettingsPage {
+class GraphicsSettingsPage : public ToggleSettingsPage {
 public:
     void createPage() override;
 
@@ -18,6 +18,7 @@ public:
     void onNext(cocos2d::CCObject*);
     void onApply(cocos2d::CCObject*);
     void onTextures(cocos2d::CCObject*);
+    void onLimitAspectRatio(cocos2d::CCObject*);
 
     CREATE_FUNC(GraphicsSettingsPage); // NOLINT(modernize-use-auto)
 

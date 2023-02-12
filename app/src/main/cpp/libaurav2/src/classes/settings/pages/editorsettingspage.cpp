@@ -40,6 +40,6 @@ void EditorSettingsPage::createPage() {
             "Show Advanced Color Picker",
             gm->getGameVariable(GameVariable::ADVANCED_COLOR_SELECT),
             static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4086>),
-            "Enables an advanced color picker with RGB color input. Also increases FadeTime precision."
+            "Enables an advanced color picker with RGB color input. Also increases precision in the duration selector."
     );
 }

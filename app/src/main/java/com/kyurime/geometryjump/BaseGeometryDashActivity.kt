@@ -1,11 +1,7 @@
 package com.kyurime.geometryjump
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Build
@@ -51,6 +47,8 @@ open class BaseGeometryDashActivity : AppCompatActivity(), Cocos2dxHelper.Cocos2
 
         super.onCreate(savedInstanceState)
 
+        BaseRobTopActivity.setCurrentActivity(this)
+
         setContentView(createView())
 
         Cocos2dxHelper.init(this, this)
@@ -63,7 +61,6 @@ open class BaseGeometryDashActivity : AppCompatActivity(), Cocos2dxHelper.Cocos2
         )
         Cocos2dxHelper.nativeSetApkPath(sourceDir)
 
-        BaseRobTopActivity.setCurrentActivity(this)
         registerReceiver()
 
         runTextureIntegrityCheck()
@@ -89,10 +86,21 @@ open class BaseGeometryDashActivity : AppCompatActivity(), Cocos2dxHelper.Cocos2
     }
 
     private fun createView(): FrameLayout {
-        val frameLayoutParams = ViewGroup.LayoutParams(-1, -1)
-        val frameLayout = FrameLayout(this)
+        val frameLayoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+        )
+        val frameLayout = ConstrainedFrameLayout(this)
         frameLayout.layoutParams = frameLayoutParams
-        val editTextLayoutParams = ViewGroup.LayoutParams(-1, -2)
+
+        if (ModGlue.isScreenRestricted()) {
+            frameLayout.aspectRatio = 1.86f
+        }
+
+        val editTextLayoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         val editText = Cocos2dxEditText(this)
         editText.layoutParams = editTextLayoutParams
         frameLayout.addView(editText)

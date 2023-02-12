@@ -285,9 +285,19 @@ object BaseRobTopActivity {
             when (intent.action) {
                 Intent.ACTION_SCREEN_ON -> {
                     Log.d("TAG", "ACTION_SCREEN_ON")
-                    if (!(me.get()?.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager).isKeyguardLocked) {
-                        shouldResumeSound = true
+
+                    val keyguardManager = me.get()?.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        if (!keyguardManager.isKeyguardLocked) {
+                            shouldResumeSound = true
+                        }
+                    } else {
+                        if (!keyguardManager.inKeyguardRestrictedInputMode()) {
+                            shouldResumeSound = true
+                        }
                     }
+
                     if (!isPaused && shouldResumeSound) {
                         resumeSound()
                     }

@@ -69,7 +69,7 @@ jobs:
     - name: Build project
       run: ./gradlew assembleLauncherRelease assembleLauncherDevelopment
       env:
-        CPM_SOURCE_CACHE: $HOME/cpm-cache
+        CPM_SOURCE_CACHE: ~/cpm-cache
 
     - name: Generate output date
       id: date

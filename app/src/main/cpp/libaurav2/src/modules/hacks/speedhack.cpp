@@ -26,7 +26,7 @@ namespace {
 
             auto card = SpeedhackManagerCard::create();
             self->addChild(card);
-            card->setPosition({screen_right - 100.0f, screen_top - 70.0f});
+            card->setPosition({screen_right - 70.0f, screen_top - 70.0f});
 
             if (auto pl = GameManager::sharedState()->getPlayLayer(); pl != nullptr) {
                 if (auto speedhack_pl_label = dynamic_cast<cocos2d::CCLabelBMFont *>(pl->getChildByTag(
@@ -40,7 +40,7 @@ namespace {
     }
 
     bool PlayLayer_init(PlayLayer *self, GJGameLevel *level) {
-        spdlog::get("global")->info("PlayLayer::init called");
+        spdlog::info("PlayLayer::init{speedhack} called");
 
         auto return_value = HookHandler::orig<&PlayLayer_init>(self, level);
 
@@ -87,6 +87,24 @@ namespace {
         return return_value;
     }
 
+    void PlayLayer_resetLevel(PlayLayer* self) {
+        HookHandler::orig<&PlayLayer_resetLevel>(self);
+
+        // skip next check if noclip enabled
+        bool noclip_enabled = GameManager::sharedState()->getGameVariable(GameVariable::IGNORE_DAMAGE);
+        if (noclip_enabled) {
+            return;
+        }
+
+        // check if user is still using speed hack
+        if (!SpeedhackManagerCard::isSpeedhackActive()) {
+            if (auto pl_ext = dynamic_cast<PlayLayerExt *>(self->getUserObject()); pl_ext != nullptr) {
+                spdlog::info("clearing legitimacy check for speedhack");
+                pl_ext->setIsIllegitimate(false);
+            }
+        }
+    }
+
     void EditorPauseLayer_customSetup(EditorPauseLayer* self) {
         bool speedhack_controls_enabled = GameManager::sharedState()->getGameVariable(
                 GameVariable::SPEED_CONTROLS);
@@ -125,6 +143,7 @@ namespace Hacks::Speedhack {
     void Module::on_initialize() {
         HookHandler::get_handler()
                 .add_hook(&PauseLayer::customSetup, PauseLayer_customSetup)
+                .add_hook("_ZN9PlayLayer10resetLevelEv", PlayLayer_resetLevel)
                 .add_hook("_ZN15FMODAudioEngine6updateEf", &FMODAudioEngine_update)
                 .add_hook("_ZN16EditorPauseLayer11customSetupEv", &EditorPauseLayer_customSetup)
                 .add_hook("_ZN16LevelEditorLayer4initEP11GJGameLevel", &LevelEditorLayer_init)

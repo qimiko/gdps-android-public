@@ -172,3 +172,24 @@ bool JNI::is_launcher_build() {
 
     return ret;
 }
+
+bool JNI::is_screen_restricted() {
+    cocos2d::JniMethodInfo t;
+    auto ret = false;
+
+    if (cocos2d::JniHelper::getStaticMethodInfo(t, "com/kyurime/geometryjump/ModGlue", "isScreenRestricted", "()Z"))
+    {
+        ret = t.env->CallStaticBooleanMethod(t.classID, t.methodID);
+    }
+
+    return ret;
+}
+
+void JNI::toggle_is_screen_restricted() {
+    cocos2d::JniMethodInfo t;
+
+    if (cocos2d::JniHelper::getStaticMethodInfo(t, "com/kyurime/geometryjump/ModGlue", "toggleIsScreenRestricted", "()V"))
+    {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID);
+    }
+}
