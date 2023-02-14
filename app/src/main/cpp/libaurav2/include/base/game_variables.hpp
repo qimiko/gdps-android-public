@@ -13,6 +13,7 @@ namespace GameVariable {
     constexpr auto LOAD_SONGS_MEMORY = "0019";
     constexpr auto HIGHER_AUDIO_QUALITY = "0022";
     constexpr auto SMOOTH_FIX = "0023";
+    constexpr auto SHOW_CURSOR = "0024";
     constexpr auto AUTOMATIC_RETRY = "0026";
     constexpr auto AUTOMATIC_CHECKPOINTS = "0027";
     constexpr auto SMALL_EDITOR_STEP = "0035";

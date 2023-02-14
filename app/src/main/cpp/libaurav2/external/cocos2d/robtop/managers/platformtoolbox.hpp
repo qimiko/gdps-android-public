@@ -7,6 +7,10 @@ public:
     static bool isNetworkAvailable();
     static void reportLoadingFinished();
     static bool isControllerConnected();
+    static void onNativePause();
+    static bool shouldResumeSound();
+    static void onNativeResume();
+    static void onToggleKeyboard();
 };
 
 #endif

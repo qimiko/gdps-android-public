@@ -129,21 +129,43 @@ GetLoadingString(LoadingLayer* /* self */)
     auto t = time(nullptr);
     auto tmp = localtime(&t);
 
-    if (tmp == nullptr || tmp->tm_wday == 1) {
-        // thank you stev
-        return "Save your game often!";
-    } else {
-        std::array<const char*, 7> messages {
-            { "Did you make a session?", "Be sure to support the original game!",
-                "Tip: Blending colors goes beneath other colors.",
-                "Sponsored by beans.com", "Its not over till its over...",
-                "Check the options menu for special settings!",
-                "Tip: Ensure your 3D lines are consistent" }
-        };
+    if (tmp != nullptr) {
+        // august 13th
+        if (tmp->tm_mday == 13 && tmp->tm_mon == 7) {
+            return "Happy birthday Geometry Dash!";
+        }
 
-        auto chosen_index = random() % messages.size();
-        return messages.at(chosen_index);
+        // june 24
+        if (tmp->tm_mday == 24 && tmp->tm_mon == 5) {
+            return "Happy birthday 1.9 GDPS!";
+        }
+
+        // april 1
+        if (tmp->tm_mday == 1 && tmp->tm_mon == 3) {
+            return "Now with more moving objects";
+        }
+
+        if (tmp->tm_wday == 1) {
+            // thank you stev
+            return "Backup your save data often!";
+        }
     }
+
+    std::array<const char*, 9> messages {
+        {
+            "Did you make a session?",
+            "Be sure to support the original game!",
+            "See the tools page for additional features!",
+            "No preview mode here...",
+            "Tip: Blending colors goes beneath other colors",
+            "Sponsored by beans.com", "Its not over till its over...",
+            "Check the options menu for special settings!",
+            "Tip: Ensure your 3D lines are consistent"
+        }
+    };
+
+    auto chosen_index = random() % messages.size();
+    return messages.at(chosen_index);
 }
 
 void LevelPage_onInfo(LevelPage* self, cocos2d::CCObject* target)
@@ -152,24 +174,23 @@ void LevelPage_onInfo(LevelPage* self, cocos2d::CCObject* target)
     if (gamelevel != nullptr) {
         // game uses page -1 for last page
         if (gamelevel->getLevelID() == -1) {
-            std::array<const char*, 4> messages {
-                { "1.9 GDPS says:\n\
-<cl>====================</c>\n\
-<cp>====================</c>\n\
-====================\n\
-<cp>====================</c>\n\
-<cl>====================</c>",
+            std::array<const char*, 6> messages {
+                {
+                    "<cr>LEVEL_INFO_OMINOUS_DESC</c>",
+                    "What brought you here?",
+                    "<cb>Did</c> I <cp>color</c> <cy>too many</c> <co>words</c>? I think I <cl>colored</c> <cr>too many</c> <cg>words</c>.",
+                    "<cr>Hey</c>! Stop pressing <cl>this button</c>!",
                     "<cr>Watch your step</c>, the <co>lasaga</c> approaches...",
                     "This <cp>secret message</c> was sponsored by <cy>beans.com</c>.",
-                    "Special thanks to <cl>jamie;</c> for being <cg>the</c>." }
+                }
             };
 
             auto chosen_index = random() % messages.size();
 
-            spdlog::get("global")->info("{} ~ chloe <3", messages.at(chosen_index));
+            spdlog::info("{} ~ chloe <3", messages.at(chosen_index));
 
             auto alert = FLAlertLayer::create(nullptr, "You found me..!",
-                messages.at(chosen_index), "<3", nullptr, 350.0);
+                messages.at(chosen_index), "Thanks", nullptr, 300.0f);
             alert->show();
 
             return;

@@ -22,6 +22,14 @@ public:
 
     void levelComplete();
     void updateProgressbar();
+
+    void resume();
+    void resumeAndRestart();
+
+    void showRetryLayer();
+    void showEndLayer();
+
+    void pauseGame(bool);
 };
 
 #endif

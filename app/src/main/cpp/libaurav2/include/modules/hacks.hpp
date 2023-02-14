@@ -14,6 +14,7 @@
 #include "base/jni_funcs.hpp"
 #include "base/game_variables.hpp"
 
+#include "classes/managers/controllermanager.hpp"
 #include "classes/extensions/playlayerext.hpp"
 
 #include "hacks/speedhack.hpp"

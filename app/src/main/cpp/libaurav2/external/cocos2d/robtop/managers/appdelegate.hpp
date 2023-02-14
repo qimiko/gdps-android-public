@@ -7,11 +7,18 @@
 class AppDelegate : public cocos2d::CCApplicationProtocol {
 public:
     static AppDelegate* get();
-    cocos2d::CCNode* getScenePointer() const;
-
-    void trySaveGame();
 
     float bgScale();
+
+    void resumeSound();
+
+    void pauseGame();
+
+    bool getPaused() const;
+
+    bool getLoadingFinished() const;
+
+    cocos2d::CCNode* getScenePointer() const;
 
     bool getIsIOS() const;
 };

@@ -193,3 +193,21 @@ void JNI::toggle_is_screen_restricted() {
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
     }
 }
+
+void JNI::capture_cursor() {
+    cocos2d::JniMethodInfo t;
+
+    if (cocos2d::JniHelper::getStaticMethodInfo(t, "com/kyurime/geometryjump/ModGlue", "captureCursor", "()V"))
+    {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID);
+    }
+}
+
+void JNI::release_cursor() {
+    cocos2d::JniMethodInfo t;
+
+    if (cocos2d::JniHelper::getStaticMethodInfo(t, "com/kyurime/geometryjump/ModGlue", "releaseCursor", "()V"))
+    {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID);
+    }
+}

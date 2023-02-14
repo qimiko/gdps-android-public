@@ -224,6 +224,13 @@ bool PlayLayer_init(PlayLayer* self, GJGameLevel* level)
     auto return_value = HookHandler::orig<&PlayLayer_init>(self, level);
 
     auto gm = GameManager::sharedState();
+
+    if (!gm->getGameVariable(GameVariable::SHOW_CURSOR)) {
+        if (PlatformToolbox::isControllerConnected()) {
+            ControllerManager::getManager().hideCursor();
+        }
+    }
+
     bool secret_enabled = gm->getGameVariable(GameVariable::REPLAY_CONTROLS);
 
     auto extension_object = new PlayLayerExt();

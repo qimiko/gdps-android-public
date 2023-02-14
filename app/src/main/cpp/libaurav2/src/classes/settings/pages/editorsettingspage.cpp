@@ -34,7 +34,7 @@ void EditorSettingsPage::createPage() {
             "Show Unused Objects",
             gm->getGameVariable(GameVariable::SHOW_UNUSED_OBJS),
             static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4091>),
-            "Adds various unused objects to the editor for use.");
+            "Adds various unused objects to the editor menus.");
 
     this->addToggle(
             "Show Advanced Color Picker",

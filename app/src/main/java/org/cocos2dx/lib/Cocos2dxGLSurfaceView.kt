@@ -2,6 +2,7 @@ package org.cocos2dx.lib
 
 import android.content.Context
 import android.opengl.GLSurfaceView
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -10,6 +11,7 @@ import android.view.InputDevice
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.RequiresApi
 import com.customRobTop.BaseRobTopActivity
 import com.kyurime.geometryjump.ModGlue
 import kotlin.math.abs
@@ -36,6 +38,20 @@ class Cocos2dxGLSurfaceView(context: Context) : GLSurfaceView(context) {
             val msg = Message()
             msg.what = HANDLER_CLOSE_IME_KEYBOARD
             handler.sendMessage(msg)
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun captureCursor() {
+            cocos2dxGLSurfaceView.requestPointerCapture()
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun releaseCursor() {
+            cocos2dxGLSurfaceView.queueEvent {
+                cocos2dxGLSurfaceView.cocos2dxRenderer.handleKeyUp(96)
+            }
+
+            cocos2dxGLSurfaceView.releasePointerCapture()
         }
     }
 
@@ -117,6 +133,39 @@ class Cocos2dxGLSurfaceView(context: Context) : GLSurfaceView(context) {
     override fun onResume() {
         super.onResume()
         queueEvent { cocos2dxRenderer.handleOnResume() }
+    }
+
+    override fun onCapturedPointerEvent(motionEvent: MotionEvent): Boolean {
+        return when (motionEvent.action and MotionEvent.ACTION_MASK) {
+            MotionEvent.ACTION_MOVE -> {
+                val horizontalOffset: Float = motionEvent.x
+                val verticalOffset: Float = motionEvent.y
+
+                if (abs(horizontalOffset) <= 0.2f && abs(verticalOffset) <= 0.2f) {
+                    return true
+                }
+
+                queueEvent {
+                    cocos2dxRenderer.handleActionMouseMove(horizontalOffset, verticalOffset)
+                }
+                true
+            }
+            MotionEvent.ACTION_DOWN -> {
+                // hardcode to the controller input down keys
+                // (they behave similarly)
+                queueEvent { cocos2dxRenderer.handleKeyDown(96) }
+
+                true
+            }
+            MotionEvent.ACTION_UP -> {
+                queueEvent { cocos2dxRenderer.handleKeyUp(96) }
+
+                true
+            }
+            else -> true
+        }
+
+        return true
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {

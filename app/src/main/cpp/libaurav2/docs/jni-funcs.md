@@ -73,6 +73,9 @@ Used for mouse support. Scrolls some ingame layers.
 `bool Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeActionJoystickMove(float leftX, float leftY, float rightX, float rightY);`  
 Used for joystick support. All values should be adjusted for deadzones prior to this function being called.
 
+`void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeSurfaceChanged(int width, int height);`  
+Used for screen resizing. Should not be called during surface initialization.
+
 `void Java_com_kyurime_geometryjump_ModGlue_onLevelImported(jstring path);`  
 Used for level file support. path is the path to the level file. Imports an xml level file (gmd) and changes scene to its info page.
 

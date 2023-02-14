@@ -75,6 +75,14 @@ public:
     */
     virtual void applicationWillEnterForeground() = 0;
 
+    virtual void applicationWillBecomeActive() = 0;
+
+    virtual void applicationWillResignActive() = 0;
+
+    virtual void trySaveGame() = 0;
+
+    virtual void gameDidSave() = 0;
+
     /**
     @brief    Callback by CCDirector for limit FPS.
     @interval       The time, expressed in seconds, between current frame and next. 
@@ -91,6 +99,8 @@ public:
      @brief Get target platform
      */
     virtual TargetPlatform getTargetPlatform() = 0;
+
+    virtual void openURL(const char*) = 0;
 };
 
 // end of platform group

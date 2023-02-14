@@ -32,6 +32,7 @@
         <activity
             android:name=".GeometryDashActivity"
             android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.NoActionBar.Fullscreen"

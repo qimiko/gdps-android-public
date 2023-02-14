@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.InputDeviceCompat
 import com.customRobTop.BaseRobTopActivity
+import org.cocos2dx.lib.Cocos2dxGLSurfaceView
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -186,6 +187,20 @@ object ModGlue {
             runOnUiThread {
                 window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             }
+        }
+    }
+
+    @JvmStatic
+    fun captureCursor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Cocos2dxGLSurfaceView.captureCursor()
+        }
+    }
+
+    @JvmStatic
+    fun releaseCursor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Cocos2dxGLSurfaceView.releaseCursor()
         }
     }
 

@@ -14,6 +14,10 @@ public:
     void stopBackgroundMusic(bool);
     bool isBackgroundMusicPlaying();
 
+    void start();
+    void stop();
+    void pauseAllEffects();
+
     void setTimeOffset(int);
     int getTimeOffset() const;
 

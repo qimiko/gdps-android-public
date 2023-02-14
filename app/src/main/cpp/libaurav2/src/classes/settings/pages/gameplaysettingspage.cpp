@@ -33,7 +33,7 @@ void GameplaySettingsPage::createPage() {
             "Speedhack Controls",
             gm->getGameVariable(GameVariable::SPEED_CONTROLS),
             static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4093>),
-            "Enables controlling the speed of levels. Disables level completions if used during a session.");
+            "Enables controlling the speed of levels. Disables level completions if used during an attempt.");
 
     this->addToggle(
             "Fast Practice Reset",

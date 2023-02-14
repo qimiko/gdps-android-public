@@ -22,6 +22,8 @@ namespace JNI {
     bool is_launcher_build();
     bool is_screen_restricted();
     void toggle_is_screen_restricted();
+    void capture_cursor();
+    void release_cursor();
 }
 
 #endif

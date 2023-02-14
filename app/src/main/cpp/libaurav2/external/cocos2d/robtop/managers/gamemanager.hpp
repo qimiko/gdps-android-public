@@ -66,6 +66,9 @@ public:
     void startUpdate();
 
     void updateMusic();
+
+    void applicationDidEnterBackground();
+    void applicationWillEnterForeground();
 };
 
 #endif

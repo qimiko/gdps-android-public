@@ -15,6 +15,8 @@ private:
     int controllerID_{5};
     cocos2d::CCTouch* currentTouch_{nullptr};
 
+    bool cursorHidden_{false};
+
     static float clampValueToMax(float value, float max);
 
     void regenerateFade(bool isShort = false);
@@ -34,6 +36,8 @@ public:
 
     void pushDown();
     void pushUp();
+
+    void setCursorHidden(bool hidden);
 
     const cocos2d::CCPoint& getPosition() override;
 

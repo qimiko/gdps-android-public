@@ -30,6 +30,8 @@
 #include "optionslayer.hpp"
 #include "levelbrowserlayer.hpp"
 #include "sharelevelsettingslayer.hpp"
+#include "endlevellayer.hpp"
+#include "retrylevellayer.hpp"
 
 #include "editor/editor.hpp"
 

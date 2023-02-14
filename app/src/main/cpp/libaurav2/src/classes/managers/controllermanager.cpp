@@ -33,6 +33,12 @@ bool ControllerManager::updateJoystickValues(const Joystick left, const Joystick
     return true;
 }
 
+bool ControllerManager::pushCursor(float x, float y) {
+    controllerOverlay_->pushCursor(x, y);
+
+    return true;
+}
+
 void ControllerManager::handleReset() {
     controllerOverlay_->resetCursor();
 }
@@ -43,6 +49,18 @@ void ControllerManager::handleClickDown() {
 
 void ControllerManager::handleClickUp() {
     controllerOverlay_->pushUp();
+}
+
+void ControllerManager::hideCursor() {
+    spdlog::info("ControllerManager::hideCursor");
+//    controllerOverlay_->setCursorHidden(true);
+//    JNI::capture_cursor();
+}
+
+void ControllerManager::showCursor() {
+    spdlog::info("ControllerManager::showCursor");
+//    controllerOverlay_->setCursorHidden(false);
+//    JNI::release_cursor();
 }
 
 ControllerManager& ControllerManager::getManager() {

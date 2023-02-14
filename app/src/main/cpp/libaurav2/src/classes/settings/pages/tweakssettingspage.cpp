@@ -31,13 +31,14 @@ void TweaksSettingsPage::createPage()  {
     this->addToggle(
             "Create Session",
             gm->getGameVariable(GameVariable::AUTOMATIC_SESSION),
-            static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4090>));
+            static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4090>),
+            "Automatically creates a game session, which enables several online features.");
 
     this->addToggle(
-            "Keep Awake",
+            "Keep Screen Awake",
             gm->getGameVariable(GameVariable::KEEP_AWAKE),
             static_cast<cocos2d::SEL_MenuHandler>(&TweaksSettingsPage::onToggleKeepAwake),
-            "Keeps screen awake during song playback and gameplay. May reduce battery life.");
+            "Prevents the device from sleeping during song playback and gameplay. May reduce battery life.");
 
     this->addToggle(
             "Free Copy",

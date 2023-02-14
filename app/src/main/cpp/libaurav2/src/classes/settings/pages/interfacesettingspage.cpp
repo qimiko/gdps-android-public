@@ -39,5 +39,14 @@ void InterfaceSettingsPage::createPage() {
             "Accurate Percentage",
             gm->getGameVariable(GameVariable::ACCURATE_PERCENTAGE),
             static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<4089>),
-            "Shows an extra two digits of precision on the ingame progress bar. Does not apply anywhere else.");
+            "Shows an extra two digits of precision on the progress bar in a level. Does not apply anywhere else.");
+
+/*
+    this->addToggle(
+            "Show cursor in-game",
+            gm->getGameVariable(GameVariable::SHOW_CURSOR),
+            static_cast<cocos2d::SEL_MenuHandler>(&ToggleSettingsPage::onToggleVariable<24>),
+            "Controller cursor is visible during gameplay."
+            );
+*/
 }

@@ -67,6 +67,7 @@ bool ControllerOverlay::init()  {
     this->addChild(overlaySprite_);
 
     overlaySprite_->setScale(1.5f);
+    overlaySprite_->setOpacity(0);
 
     resetCursor(false);
 
@@ -92,7 +93,9 @@ void ControllerOverlay::pushDown() {
         fadeAction_ = nullptr;
     }
 
-    overlaySprite_->setOpacity(255);
+    if (!cursorHidden_) {
+        overlaySprite_->setOpacity(255);
+    }
 
     // hardcoded id, Android uses pointer id for touches
     if (currentTouch_) {
@@ -111,10 +114,13 @@ void ControllerOverlay::pushDown() {
 }
 
 void ControllerOverlay::pushUp() {
-    regenerateFade(true);
-
     if (!currentTouch_) {
+        overlaySprite_->setOpacity(0);
         return;
+    }
+
+    if (!cursorHidden_) {
+        regenerateFade(true);
     }
 
     updateTouchInfo();
@@ -127,6 +133,10 @@ void ControllerOverlay::pushUp() {
 
     currentTouch_->release();
     currentTouch_ = nullptr;
+}
+
+void ControllerOverlay::setCursorHidden(bool hidden) {
+    cursorHidden_ = hidden;
 }
 
 const cocos2d::CCPoint& ControllerOverlay::getPosition() {

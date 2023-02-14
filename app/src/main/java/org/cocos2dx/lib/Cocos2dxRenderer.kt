@@ -66,11 +66,18 @@ class Cocos2dxRenderer(var glSurfaceView: Cocos2dxGLSurfaceView) : GLSurfaceView
 
         @JvmStatic
         private external fun nativeActionJoystickMove(leftX: Float, leftY: Float, rightX: Float, rightY: Float): Boolean
+
+        @JvmStatic
+        private external fun nativeActionMouseMove(x: Float, y: Float): Boolean
+
+        @JvmStatic
+        private external fun nativeSurfaceChanged(width: Int, height: Int)
     }
 
     private var lastTickInNanoSeconds: Long = 0
     private var screenWidth = 0
     private var screenHeight = 0
+    private var initFinished = false
 
     fun setScreenWidthAndHeight(surfaceWidth: Int, surfaceHeight: Int) {
         screenWidth = surfaceWidth
@@ -80,9 +87,14 @@ class Cocos2dxRenderer(var glSurfaceView: Cocos2dxGLSurfaceView) : GLSurfaceView
     override fun onSurfaceCreated(gl10: GL10?, eglConfig: EGLConfig?) {
         nativeInit(screenWidth, screenHeight)
         lastTickInNanoSeconds = System.nanoTime()
+        initFinished = true
     }
 
-    override fun onSurfaceChanged(gl10: GL10?, width: Int, height: Int) {}
+    override fun onSurfaceChanged(gl10: GL10?, width: Int, height: Int) {
+        if (initFinished) {
+            nativeSurfaceChanged(width, height)
+        }
+    }
 
     override fun onDrawFrame(gl: GL10?) {
         nativeRender()
@@ -143,5 +155,9 @@ class Cocos2dxRenderer(var glSurfaceView: Cocos2dxGLSurfaceView) : GLSurfaceView
 
     fun handleActionJoystickMove(leftX: Float, leftY: Float, rightX: Float, rightY: Float) {
         nativeActionJoystickMove(leftX, leftY, rightX, rightY)
+    }
+
+    fun handleActionMouseMove(x: Float, y: Float) {
+        nativeActionMouseMove(x, y)
     }
 }

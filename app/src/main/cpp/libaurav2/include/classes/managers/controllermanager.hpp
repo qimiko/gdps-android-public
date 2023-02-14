@@ -10,6 +10,7 @@
 #include <cocos2dcpp.h>
 
 #include "base/spdlog.hpp"
+#include "base/jni_funcs.hpp"
 
 #include "classes/controlleroverlay.hpp"
 
@@ -48,6 +49,11 @@ public:
     void handleReset();
     void handleClickDown();
     void handleClickUp();
+
+    bool pushCursor(float x, float y);
+
+    void showCursor();
+    void hideCursor();
 
     static bool isKeycodeControllerConfusable(int keyCode);
     static cocos2d::enumKeyCodes translateAndroidKeyCodeToWindows(int keyCode);
