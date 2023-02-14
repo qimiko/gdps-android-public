@@ -64,7 +64,7 @@ namespace {
         unsigned char* out = nullptr;
         const auto size = cocos2d::base64Decode(
                 reinterpret_cast<unsigned char *>(const_cast<char*>(str.data())),
-                str.size(), &out);
+                str.size(), &out, false);
         std::string outs(reinterpret_cast<char*>(out), size);
         free(out);
 

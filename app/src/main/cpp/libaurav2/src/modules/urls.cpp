@@ -89,7 +89,7 @@ std::string ZipUtils_decompressString2Wrap(unsigned char* data, bool use_decrypt
     }
 
     unsigned char* b64decoded = nullptr;
-    auto decoded_length = cocos2d::base64Decode(data, size, &b64decoded);
+    auto decoded_length = cocos2d::base64Decode(data, size, &b64decoded, true);
 
     if (decoded_length < 1) {
         delete[] b64decoded;
@@ -124,6 +124,8 @@ bool DS_Dictionary_loadRootSubDictFromCompressedFile(DS_Dictionary* self, const 
     }
 
     auto fpath = FileOperation::getFilePath() + filename;
+
+    spdlog::info("loading save file {}", fpath);
 
     auto ifs = std::ifstream(fpath);
     if (!ifs) {
